@@ -1,0 +1,28 @@
+{
+  "name": "Dote — Family Baby Album",
+  "short_name": "Dote",
+  "description": "A cosy family photo-sharing app for tracking your baby's first moments",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3e8d8",
+  "theme_color": "#c0573a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

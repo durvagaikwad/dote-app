@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BabyNear — a quiet little space for family, all baby, all the time</title>
+<meta name="description" content="BabyNear keeps faraway family close — share photos, milestones, and everyday moments with the people who matter most.">
+<meta property="og:title" content="BabyNear — all baby, all the time">
+<meta property="og:description" content="A quiet space for family to share photos, milestones, and everyday moments.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#fbf3e9;
+    --cream-2:#f6e7d6;
+    --peach:#f4b9a0;
+    --peach-deep:#e89a7e;
+    --rose:#e98a8a;
+    --sage:#9bb89a;
+    --ink:#4a3b34;
+    --ink-soft:#7a675d;
+    --card:#fffdfa;
+    --line:#efe0cf;
+    --gold:#e7b15a;
+    --shadow:0 10px 30px rgba(120,80,55,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  .skip-link{position:absolute;top:-100%;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;
+    padding:8px 18px;border-radius:0 0 12px 12px;font-size:13px;font-weight:700;z-index:10000;text-decoration:none}
+  .skip-link:focus{top:0}
+  body{
+    font-family:'Nunito',system-ui,sans-serif;
+    background:
+      radial-gradient(1200px 600px at 20% -10%, #fff5ea 0%, transparent 60%),
+      radial-gradient(1000px 700px at 110% 20%, #fbe7d8 0%, transparent 55%),
+      #f3e6d6;
+    color:var(--ink);
+    min-height:100dvh;
+    display:flex;align-items:center;justify-content:center;
+    padding:28px 16px;
+    gap:42px;flex-wrap:wrap;
+  }
+  .stage{display:flex;flex-direction:column;align-items:center;gap:14px}
+  .pitch{max-width:300px;text-align:center}
+  .pitch h1{font-family:'Fraunces',serif;font-weight:600;font-size:30px;letter-spacing:-.5px;color:var(--ink)}
+  .pitch h1 span{color:var(--peach-deep)}
+  .pitch p{margin-top:8px;color:var(--ink-soft);font-size:14px;line-height:1.5}
+  .pitch .tag{display:inline-block;margin-top:12px;background:#fff;border:1px solid var(--line);
+    padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;color:var(--peach-deep);box-shadow:var(--shadow)}
+
+  /* phone */
+  .phone{
+    width:340px;height:716px;background:var(--cream);border-radius:46px;
+    box-shadow:0 30px 70px rgba(120,80,55,.28), inset 0 0 0 10px #fff, inset 0 0 0 12px #e9d8c6;
+    padding:12px;position:relative;overflow:hidden;
+  }
+  .notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#1f1712;border-radius:0 0 16px 16px;z-index:40}
+  .screen{
+    position:absolute;inset:12px;border-radius:36px;overflow:hidden;background:var(--cream);
+    display:flex;flex-direction:column;
+  }
+  .scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .scroll::-webkit-scrollbar{width:0}
+
+  /* top status + header */
+  .statusbar{display:flex;justify-content:space-between;align-items:center;padding:16px 22px 4px;font-size:12px;font-weight:800;color:var(--ink)}
+  .view{display:none;flex-direction:column;height:100%}
+  .view.active{display:flex}
+
+  .appbar{padding:6px 20px 12px;display:flex;align-items:center;justify-content:space-between}
+  .brand{font-family:'Fraunces',serif;font-weight:600;font-size:22px;color:var(--ink);letter-spacing:-.3px}
+  .brand b{color:var(--peach-deep);font-weight:600}
+  .avatar{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:var(--shadow)}
+
+  .babyhead{display:flex;gap:12px;align-items:center;padding:4px 20px 14px}
+  .babyhead .pic{width:56px;height:56px;border-radius:22px;object-fit:cover;border:3px solid #fff;box-shadow:var(--shadow)}
+  .babyhead h2{font-family:'Fraunces',serif;font-weight:600;font-size:20px}
+  .babyhead p{font-size:12.5px;color:var(--ink-soft);font-weight:600;margin-top:2px}
+
+  /* cards / feed */
+  .card{background:var(--card);margin:0 16px 16px;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+  .card .who{display:flex;align-items:center;gap:9px;padding:12px 14px 9px}
+  .card .who img{width:30px;height:30px;border-radius:50%;object-fit:cover}
+  .card .who b{font-size:13.5px}
+  .card .who span{font-size:11.5px;color:var(--ink-soft);margin-left:auto;font-weight:700}
+  .ph{width:100%;height:230px;object-fit:cover;display:block}
+  .cap{padding:11px 15px 4px;font-size:14.5px;line-height:1.5;color:var(--ink)}
+  .milestone-chip{display:inline-flex;align-items:center;gap:6px;margin:10px 15px 2px;background:#fbeede;color:#c98a3e;
+    border:1px solid #f0dcbd;padding:5px 11px;border-radius:999px;font-size:12px;font-weight:800}
+  .react{display:flex;align-items:center;gap:14px;padding:10px 15px 14px;color:var(--ink-soft);font-size:13px;font-weight:700}
+  .react .heart{display:flex;align-items:center;gap:6px;color:var(--rose);cursor:pointer;user-select:none;transition:transform .12s}
+  .react .heart:active{transform:scale(1.25)}
+  .react .faces{display:flex;margin-left:2px}
+  .react .faces img{width:22px;height:22px;border-radius:50%;border:2px solid #fff;margin-left:-8px;object-fit:cover}
+  .react .cmt{margin-left:auto;display:flex;align-items:center;gap:6px}
+
+  .daystamp{text-align:center;font-size:12px;font-weight:800;color:var(--peach-deep);letter-spacing:.4px;margin:6px 0 14px;text-transform:uppercase}
+
+  /* milestones list */
+  .agegroup{font-family:'Fraunces',serif;font-weight:600;font-size:16px;color:var(--ink);margin:6px 20px 10px}
+  .ms{display:flex;align-items:center;gap:13px;background:var(--card);margin:0 16px 11px;border:1px solid var(--line);
+    border-radius:20px;padding:13px 15px;box-shadow:var(--shadow)}
+  .ms .tick{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);flex:none;display:flex;align-items:center;justify-content:center;font-size:15px;color:transparent}
+  .ms.done .tick{background:var(--sage);border-color:var(--sage);color:#fff}
+  .ms h4{font-size:14.5px;font-weight:800;color:var(--ink)}
+  .ms p{font-size:12px;color:var(--ink-soft);font-weight:600;margin-top:1px}
+  .ms.done h4{color:var(--ink-soft)}
+  .ms .go{margin-left:auto;color:var(--peach-deep);font-weight:800;font-size:18px}
+
+  /* post screen */
+  .postwrap{flex:1;display:flex;flex-direction:column;padding:8px 20px 20px}
+  .photo-drop{flex:1;min-height:230px;border-radius:26px;background:
+      linear-gradient(135deg,#fbe7d3,#f7d9c4);border:2px dashed #e7b48f;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#c08358;cursor:pointer}
+  .photo-drop .cam{font-size:42px}
+  .photo-drop b{font-weight:800;font-size:15px}
+  .photo-drop span{font-size:12px;color:#b78a6b}
+  .cap-input{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:13px 15px;
+    font-family:inherit;font-size:14px;color:var(--ink);min-height:64px;box-shadow:var(--shadow)}
+  .cap-input::placeholder{color:#bcab9e}
+  .ms-toggle{margin-top:12px;display:flex;align-items:center;gap:10px;background:#fbeede;border:1px solid #f0dcbd;
+    border-radius:16px;padding:12px 15px;font-size:13px;font-weight:800;color:#c98a3e}
+  .ms-toggle .sw{margin-left:auto;width:42px;height:24px;background:var(--gold);border-radius:999px;position:relative}
+  .ms-toggle .sw:after{content:"";position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;background:#fff}
+  .speed{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;font-size:12px;font-weight:800;color:var(--sage)}
+
+  /* family screen */
+  .invite{margin:2px 16px 18px;background:linear-gradient(135deg,#fff,#fdf4ea);border:1px solid var(--line);
+    border-radius:24px;padding:18px;box-shadow:var(--shadow)}
+  .invite h3{font-family:'Fraunces',serif;font-weight:600;font-size:17px}
+  .invite p{font-size:12.5px;color:var(--ink-soft);font-weight:600;margin:5px 0 13px;line-height:1.5}
+  .link-row{display:flex;gap:8px}
+  .link-row .lk{flex:1;background:#f6ebdd;border:1px dashed #e2c9ac;border-radius:13px;padding:11px 13px;font-size:12px;font-weight:700;color:#9c8164;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+  .secrole{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--peach-deep);margin:4px 20px 10px}
+  .member{display:flex;align-items:center;gap:12px;background:var(--card);margin:0 16px 10px;border:1px solid var(--line);
+    border-radius:18px;padding:11px 14px;box-shadow:var(--shadow)}
+  .member img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+  .member b{font-size:14px}
+  .member p{font-size:11.5px;color:var(--ink-soft);font-weight:600}
+  .pill{margin-left:auto;font-size:10.5px;font-weight:800;padding:4px 9px;border-radius:999px;text-transform:uppercase;letter-spacing:.3px}
+  .pill.parent{background:#e9f2e6;color:#6e9268}
+  .pill.fam{background:#fbeede;color:#c98a3e}
+
+  /* buttons */
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--peach-deep);color:#fff;font-weight:800;
+    font-size:15px;border:none;border-radius:18px;padding:15px;cursor:pointer;box-shadow:0 8px 18px rgba(214,138,108,.4)}
+  .btn.ghost{background:#fff;color:var(--peach-deep);border:1.5px solid #f0cdb8;box-shadow:var(--shadow)}
+  .pad{padding:0 20px}
+
+  /* bottom nav */
+  .nav{display:flex;background:#fffdfa;border-top:1px solid var(--line);padding:9px 8px 12px;justify-content:space-around}
+  .nav button{background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;
+    font-size:10px;font-weight:800;color:#c3b1a3;padding:4px 12px;border-radius:14px;font-family:inherit}
+  .nav button .ic{font-size:20px;line-height:1}
+  .nav button.active{color:var(--peach-deep)}
+  .nav .post-btn{background:var(--peach-deep);color:#fff;width:48px;height:48px;border-radius:50%;justify-content:center;
+    box-shadow:0 8px 16px rgba(214,138,108,.45);margin-top:-14px}
+  .nav .post-btn .ic{font-size:24px}
+  .sectiontitle{font-family:'Fraunces',serif;font-weight:600;font-size:18px;padding:2px 20px 12px}
+
+  .hint{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:rgba(74,59,52,.9);color:#fff;
+    font-size:12px;font-weight:700;padding:8px 16px;border-radius:999px;backdrop-filter:blur(4px);
+    transition:background .3s ease,transform .3s ease}
+
+  /* ── Redesign polish ── */
+  html{scroll-behavior:smooth}
+
+  /* Grain overlay — breaks digital flatness */
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.03;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Text polish */
+  .pitch p{text-wrap:balance}
+  .cap{text-wrap:pretty}
+
+  /* Daystamp — refined from all-caps to small-caps with decorative line */
+  .daystamp{text-transform:none;font-variant:small-caps;letter-spacing:.08em;
+    display:flex;align-items:center;gap:12px;padding:0 20px;margin:10px 0 16px}
+  .daystamp::before,.daystamp::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  /* ── Hover, active, & transition states ── */
+
+  /* Buttons */
+  .btn{transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(214,138,108,.45)}
+  .btn:active{transform:translateY(0) scale(.97);box-shadow:0 4px 10px rgba(214,138,108,.3)}
+  .btn.ghost:hover{background:#fef8f4;border-color:var(--peach)}
+  .btn.ghost:active{background:#fdf0e8}
+
+  /* Cards */
+  .card{transition:transform .3s ease,box-shadow .3s ease}
+  .card:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(120,80,55,.18)}
+
+  /* Nav buttons */
+  .nav button{transition:color .2s ease,background .2s ease,transform .2s ease}
+  .nav button:hover:not(.post-btn){color:var(--peach-deep);background:rgba(232,154,126,.08)}
+  .nav .post-btn{transition:transform .2s ease,box-shadow .2s ease}
+  .nav .post-btn:hover{transform:scale(1.1) translateY(-2px);box-shadow:0 12px 24px rgba(214,138,108,.55)}
+  .nav .post-btn:active{transform:scale(.92)}
+
+  /* Heart reaction */
+  .react .heart{transition:transform .15s cubic-bezier(.34,1.56,.64,1)}
+  .react .heart:hover{transform:scale(1.15)}
+
+  /* Milestone rows */
+  .ms{transition:transform .2s ease,box-shadow .2s ease,background .2s ease;cursor:pointer}
+  .ms:hover{transform:translateX(4px);box-shadow:0 14px 36px rgba(120,80,55,.15);background:#fefcf9}
+  .ms .go{transition:transform .2s ease}
+  .ms:hover .go{transform:scale(1.2)}
+
+  /* Member rows */
+  .member{transition:background .2s ease,transform .2s ease}
+  .member:hover{background:#fef8f4;transform:translateX(3px)}
+
+  /* Photo drop zone */
+  .photo-drop{transition:border-color .25s ease,background .25s ease,transform .2s ease}
+  .photo-drop:hover{border-color:#d49a6e;background:linear-gradient(135deg,#f7ddc4,#f3ccb0);transform:scale(1.01)}
+  .photo-drop:active{transform:scale(.99)}
+
+  /* Invite card */
+  .invite{transition:box-shadow .25s ease,transform .25s ease}
+  .invite:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(120,80,55,.16)}
+
+  /* Milestone toggle */
+  .ms-toggle{transition:background .2s ease;cursor:pointer}
+  .ms-toggle:hover{background:#f8e4cb}
+  .ms-toggle .sw{transition:background .2s ease}
+
+  /* Avatar hover */
+  .avatar{transition:transform .2s ease,box-shadow .2s ease;cursor:pointer}
+  .avatar:hover{transform:scale(1.08);box-shadow:0 6px 18px rgba(120,80,55,.2)}
+
+  /* Baby pic hover */
+  .babyhead .pic{transition:transform .2s ease,box-shadow .2s ease}
+  .babyhead .pic:hover{transform:scale(1.06);box-shadow:0 8px 22px rgba(120,80,55,.2)}
+
+  /* Pill badges */
+  .pill{transition:transform .15s ease}
+  .member:hover .pill{transform:scale(1.05)}
+
+  /* ── Focus rings (accessibility) ── */
+  :focus-visible{outline:2.5px solid var(--peach-deep);outline-offset:3px}
+  .nav button:focus-visible{border-radius:14px}
+  .btn:focus-visible{outline-offset:4px;border-radius:18px}
+
+  /* ── View transition animation ── */
+  @keyframes viewFadeIn{from{opacity:0}to{opacity:1}}
+  .view.active{animation:viewFadeIn .25s ease}
+
+  /* ── Staggered entry — elements cascade on view switch ── */
+  @keyframes slideUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+  .view.active .scroll>:nth-child(1){animation:slideUp .4s cubic-bezier(.22,1,.36,1) both}
+  .view.active .scroll>:nth-child(2){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .06s both}
+  .view.active .scroll>:nth-child(3){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .12s both}
+  .view.active .scroll>:nth-child(4){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .18s both}
+  .view.active .scroll>:nth-child(5){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .24s both}
+  .view.active .scroll>:nth-child(6){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .30s both}
+  .view.active .scroll>:nth-child(n+7){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .36s both}
+  .view.active .postwrap{animation:slideUp .45s cubic-bezier(.22,1,.36,1) both}
+  .view.active .postwrap>:nth-child(2){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .08s both}
+  .view.active .postwrap>:nth-child(3){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .14s both}
+  .view.active .postwrap>:nth-child(4){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .20s both}
+  .view.active .postwrap>:nth-child(5){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .26s both}
+
+  /* ── Colored, tinted shadows for depth ── */
+  .card{box-shadow:0 10px 30px rgba(186,140,100,.12),0 2px 8px rgba(186,140,100,.06)}
+  .card:hover{box-shadow:0 20px 48px rgba(186,140,100,.18),0 4px 12px rgba(186,140,100,.08)}
+
+  /* ── Reduce motion for accessibility ── */
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  }
+</style>
+</head>
+<body>
+
+  <a href="#screen" class="skip-link">Skip to app</a>
+  <header class="stage">
+    <div class="pitch">
+      <h1>Baby<span>Near</span></h1>
+      <p>WhatsApp speed, but a quiet little space that's <b>all baby, all the time</b> — so family far away never misses a moment.</p>
+      <div class="tag">For Aanya, 6,400 km away</div>
+    </div>
+  </header>
+
+  <main class="phone" id="screen">
+    <div class="notch"></div>
+    <div class="screen">
+
+      <!-- ============ FEED ============ -->
+      <section class="view active" data-view="feed">
+        <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="appbar">
+          <div class="brand">Baby<b>Near</b></div>
+          <img class="avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&h=120&fit=crop" alt="Your profile">
+        </div>
+        <div class="babyhead">
+          <img class="pic" src="https://images.unsplash.com/photo-1519689680058-324335c77eba?w=160&h=160&fit=crop" alt="Aanya">
+          <div>
+            <h2>Aanya 🌸</h2>
+            <p>11 months • Mumbai, India</p>
+          </div>
+        </div>
+        <div class="scroll">
+          <div class="daystamp">Today</div>
+
+          <div class="card">
+            <div class="who">
+              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop" alt="Priya">
+              <b>Priya (Mom)</b><span>2h ago</span>
+            </div>
+            <span class="milestone-chip">Milestone · First steps!</span>
+            <img class="ph" src="https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=600&h=460&fit=crop" alt="Aanya taking her first steps">
+            <div class="cap">She let go of the couch and took THREE steps to me 🥹 Wish you could've seen it live, didi!</div>
+            <div class="react">
+              <div class="heart" onclick="bump(this)">❤ <span class="n">12</span></div>
+              <div class="faces">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=60&h=60&fit=crop">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop">
+              </div>
+              <div class="cmt">💬 5</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="who">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop" alt="Rohan">
+              <b>Rohan (Dad)</b><span>6h ago</span>
+            </div>
+            <img class="ph" src="https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?w=600&h=460&fit=crop" alt="Aanya at breakfast with food everywhere">
+            <div class="cap">Breakfast situation 🥣 90% on the floor, 10% in the mouth. A solid morning.</div>
+            <div class="react">
+              <div class="heart" onclick="bump(this)">❤ <span class="n">8</span></div>
+              <div class="faces">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=60&h=60&fit=crop">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=60&h=60&fit=crop">
+              </div>
+              <div class="cmt">💬 2</div>
+            </div>
+          </div>
+
+          <div class="daystamp">Yesterday</div>
+
+          <div class="card">
+            <div class="who">
+              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop" alt="Priya">
+              <b>Priya (Mom)</b><span>1d ago</span>
+            </div>
+            <img class="ph" src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&h=460&fit=crop" alt="Aanya giggling during naptime">
+            <div class="cap">Nap that turned into a giggle fit 💤➡️😂</div>
+            <div class="react">
+              <div class="heart" onclick="bump(this)">❤ <span class="n">15</span></div>
+              <div class="faces">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop">
+              </div>
+              <div class="cmt">💬 7</div>
+            </div>
+          </div>
+          <div style="height:14px"></div>
+        </div>
+      </section>
+
+      <!-- ============ MILESTONES ============ -->
+      <section class="view" data-view="milestones">
+        <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="appbar"><div class="brand">Milestones</div></div>
+        <div class="scroll">
+          <div class="agegroup">9–12 months</div>
+          <div class="ms done"><div class="tick">✓</div><div><h4>First steps</h4><p>Logged today by Priya</p></div></div>
+          <div class="ms done"><div class="tick">✓</div><div><h4>Waves bye-bye</h4><p>Logged 2 weeks ago</p></div></div>
+          <div class="ms"><div class="tick">✓</div><div><h4>First word</h4><p>Tap to capture this moment</p></div><div class="go">＋</div></div>
+          <div class="ms"><div class="tick">✓</div><div><h4>Claps hands</h4><p>Tap to capture this moment</p></div><div class="go">＋</div></div>
+
+          <div class="agegroup" style="margin-top:14px">6–9 months</div>
+          <div class="ms done"><div class="tick">✓</div><div><h4>Sits without support</h4><p>Logged last month</p></div></div>
+          <div class="ms done"><div class="tick">✓</div><div><h4>First solid food</h4><p>Logged 2 months ago</p></div></div>
+          <div class="ms done"><div class="tick">✓</div><div><h4>Responds to name</h4><p>Logged 2 months ago</p></div></div>
+
+          <div class="agegroup" style="margin-top:14px">Your own moments</div>
+          <div class="ms"><div class="tick">✓</div><div><h4>Add a custom milestone</h4><p>Anything you want to remember</p></div><div class="go">＋</div></div>
+          <div style="height:14px"></div>
+        </div>
+      </section>
+
+      <!-- ============ POST ============ -->
+      <section class="view" data-view="post">
+        <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="appbar"><div class="brand">Share a moment</div></div>
+        <div class="postwrap">
+          <div class="photo-drop">
+            <div class="cam">📷</div>
+            <b>Snap or pick a photo</b>
+            <span>One tap — that's the whole job</span>
+          </div>
+          <div class="cap-input">Say something sweet…</div>
+          <div class="ms-toggle">⭐ Mark as a milestone <div class="sw"></div></div>
+          <div class="speed">⚡ Posts in under 10 seconds</div>
+          <button class="btn" style="margin-top:14px" onclick="go('feed')">Share with the family →</button>
+        </div>
+      </section>
+
+      <!-- ============ FAMILY ============ -->
+      <section class="view" data-view="family">
+        <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="appbar"><div class="brand">Family Circle</div></div>
+        <div class="scroll">
+          <div class="invite">
+            <h3>Bring everyone close 🤍</h3>
+            <p>Send one link. They tap it and they're in — no account, no app store, no fuss.</p>
+            <div class="link-row">
+              <div class="lk">babynear.app/aanya/join · k7x2…</div>
+              <button class="btn" style="padding:11px 16px;font-size:13px;border-radius:13px" onclick="toast('Invite link copied ✨')">Copy</button>
+            </div>
+          </div>
+
+          <div class="secrole">Can post</div>
+          <div class="member"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop"><div><b>Priya</b><p>Mom</p></div><span class="pill parent">Parent</span></div>
+          <div class="member"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop"><div><b>Rohan</b><p>Dad</p></div><span class="pill parent">Parent</span></div>
+
+          <div class="secrole" style="margin-top:14px">Can view & react</div>
+          <div class="member"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop"><div><b>You</b><p>Aunt · Seattle, USA 🇺🇸</p></div><span class="pill fam">Family</span></div>
+          <div class="member"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=80&h=80&fit=crop"><div><b>Naniji</b><p>Grandma · Pune</p></div><span class="pill fam">Family</span></div>
+          <div class="member"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop"><div><b>Uncle Sam</b><p>London, UK 🇬🇧</p></div><span class="pill fam">Family</span></div>
+          <div style="height:14px"></div>
+        </div>
+      </section>
+
+      <!-- bottom nav -->
+      <nav class="nav">
+        <button data-go="feed" class="active"><span class="ic">🏠</span>Feed</button>
+        <button data-go="milestones"><span class="ic">⭐</span>Milestones</button>
+        <button class="post-btn" data-go="post"><span class="ic">＋</span></button>
+        <button data-go="family"><span class="ic">👨‍👩‍👧</span>Family</button>
+        <button data-go="lookback" onclick="toast('“On this day” lookback — coming in the build ✨')"><span class="ic">🕰️</span>Lookback</button>
+      </nav>
+
+    </div>
+  </main>
+
+  <div class="hint">Tap the bottom nav to move between screens →</div>
+
+<script>
+  function go(name){
+    document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active', v.dataset.view===name));
+    document.querySelectorAll('.nav button[data-go]').forEach(b=>b.classList.toggle('active', b.dataset.go===name));
+    const sc = document.querySelector('.view.active .scroll'); if(sc) sc.scrollTop=0;
+  }
+  document.querySelectorAll('.nav button[data-go]').forEach(b=>{
+    if(b.dataset.go!=='lookback') b.addEventListener('click',()=>go(b.dataset.go));
+  });
+  function bump(el){
+    const n=el.querySelector('.n'); n.textContent=(+n.textContent)+1;
+    el.style.transform='scale(1.3)'; setTimeout(()=>el.style.transform='',140);
+  }
+  let t;
+  function toast(msg){
+    clearTimeout(t); const h=document.querySelector('.hint');
+    h.textContent=msg; h.style.background='rgba(214,138,108,.95)';
+    t=setTimeout(()=>{h.textContent='Tap the bottom nav to move between screens →';h.style.background='rgba(74,59,52,.9)';},2200);
+  }
+</script>
+</body>
+</html>
