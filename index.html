@@ -1,470 +1,1432 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>BabyNear — a quiet little space for family, all baby, all the time</title>
-<meta name="description" content="BabyNear keeps faraway family close — share photos, milestones, and everyday moments with the people who matter most.">
-<meta property="og:title" content="BabyNear — all baby, all the time">
-<meta property="og:description" content="A quiet space for family to share photos, milestones, and everyday moments.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Dote — Family Baby Album</title>
+<meta name="description" content="A cosy family photo-sharing app for tracking your baby's first moments">
+<meta property="og:title" content="Dote — Family Baby Album">
+<meta property="og:description" content="A cosy family photo-sharing app for tracking your baby's first moments">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Dote">
+<meta name="theme-color" content="#a1cc6a">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-192.png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0,1&family=Lora:ital,wght@1,400..700&family=Inter:wght@400..800&family=Patrick+Hand+SC&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --cream:#fbf3e9;
-    --cream-2:#f6e7d6;
-    --peach:#f4b9a0;
-    --peach-deep:#e89a7e;
-    --rose:#e98a8a;
-    --sage:#9bb89a;
-    --ink:#4a3b34;
-    --ink-soft:#7a675d;
-    --card:#fffdfa;
-    --line:#efe0cf;
-    --gold:#e7b15a;
-    --shadow:0 10px 30px rgba(120,80,55,.10);
-  }
-  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  .skip-link{position:absolute;top:-100%;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;
-    padding:8px 18px;border-radius:0 0 12px 12px;font-size:13px;font-weight:700;z-index:10000;text-decoration:none}
-  .skip-link:focus{top:0}
-  body{
-    font-family:'Nunito',system-ui,sans-serif;
-    background:
-      radial-gradient(1200px 600px at 20% -10%, #fff5ea 0%, transparent 60%),
-      radial-gradient(1000px 700px at 110% 20%, #fbe7d8 0%, transparent 55%),
-      #f3e6d6;
-    color:var(--ink);
-    min-height:100dvh;
-    display:flex;align-items:center;justify-content:center;
-    padding:28px 16px;
-    gap:42px;flex-wrap:wrap;
-  }
-  .stage{display:flex;flex-direction:column;align-items:center;gap:14px}
-  .pitch{max-width:300px;text-align:center}
-  .pitch h1{font-family:'Fraunces',serif;font-weight:600;font-size:30px;letter-spacing:-.5px;color:var(--ink)}
-  .pitch h1 span{color:var(--peach-deep)}
-  .pitch p{margin-top:8px;color:var(--ink-soft);font-size:14px;line-height:1.5}
-  .pitch .tag{display:inline-block;margin-top:12px;background:#fff;border:1px solid var(--line);
-    padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;color:var(--peach-deep);box-shadow:var(--shadow)}
+:root {
+  /* ── Dote "Sunny Scrapbook" palette ── */
+  --cream:#f8f2e5; --surface:#faf6ef;
+  --green:#a1cc6a; --green-hover:#8fbc55;
+  --blue:#4885c1; --blue-hover:#3a74ad; --sky:#92bfec;
+  --accent:#ff921e;
+  --today:#c4785e; --heart:#da4b91;
 
-  /* phone */
-  .phone{
-    width:340px;height:716px;background:var(--cream);border-radius:46px;
-    box-shadow:0 30px 70px rgba(120,80,55,.28), inset 0 0 0 10px #fff, inset 0 0 0 12px #e9d8c6;
-    padding:12px;position:relative;overflow:hidden;
-  }
-  .notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#1f1712;border-radius:0 0 16px 16px;z-index:40}
-  .screen{
-    position:absolute;inset:12px;border-radius:36px;overflow:hidden;background:var(--cream);
-    display:flex;flex-direction:column;
-  }
-  .scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
-  .scroll::-webkit-scrollbar{width:0}
+  --bg-welcome:var(--cream); --bg-step1:var(--cream); --bg-step2:var(--cream); --bg-step3:var(--cream); --bg-app:var(--cream);
+  --terracotta:var(--blue); --terracotta-hover:var(--blue-hover); --peach-btn:var(--green); --peach-btn-hover:var(--green-hover);
+  --ink:#1a1410; --ink-soft:#5f5648; --ink-light:#8a7664;
+  --card:#ffffff; --card-warm:var(--surface); --line:#e4dcca;
+  --gold:var(--accent); --gold-light:#ffd9a8; --sage:var(--green); --rose:var(--heart); --cloud:var(--sky); --lavender:#aebadf;
+  --font-serif:'Fraunces',Georgia,serif; --font-display:'Lora',Georgia,serif;
+  --font-hand:'Patrick Hand SC',cursive; --font-sans:'Inter',system-ui,sans-serif;
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
 
-  /* top status + header */
-  .statusbar{display:flex;justify-content:space-between;align-items:center;padding:16px 22px 4px;font-size:12px;font-weight:800;color:var(--ink)}
-  .view{display:none;flex-direction:column;height:100%}
-  .view.active{display:flex}
+  /* Fluid type scale (320px → 720px viewport) */
+  --text-xs: clamp(0.625rem, 0.55rem + 0.375vw, 0.8125rem);
+  --text-sm: clamp(0.75rem, 0.675rem + 0.375vw, 0.9375rem);
+  --text-base: clamp(0.875rem, 0.8rem + 0.375vw, 1.0625rem);
+  --text-lg: clamp(1rem, 0.875rem + 0.625vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.05rem + 1vw, 1.625rem);
+  --text-2xl: clamp(1.5rem, 1.2rem + 1.5vw, 2rem);
+  --text-3xl: clamp(1.75rem, 1.35rem + 2vw, 2.5rem);
 
-  .appbar{padding:6px 20px 12px;display:flex;align-items:center;justify-content:space-between}
-  .brand{font-family:'Fraunces',serif;font-weight:600;font-size:22px;color:var(--ink);letter-spacing:-.3px}
-  .brand b{color:var(--peach-deep);font-weight:600}
-  .avatar{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:var(--shadow)}
+  /* Fluid spacing scale */
+  --space-xs: clamp(0.25rem, 0.15rem + 0.5vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 0.35rem + 0.75vw, 0.875rem);
+  --space-md: clamp(0.75rem, 0.55rem + 1vw, 1.25rem);
+  --space-lg: clamp(1rem, 0.7rem + 1.5vw, 1.75rem);
+  --space-xl: clamp(1.5rem, 1rem + 2.5vw, 2.75rem);
+  --space-2xl: clamp(2rem, 1.25rem + 3.75vw, 4rem);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--terracotta);outline-offset:2px;border-radius:4px}
+html{scroll-behavior:smooth}
 
-  .babyhead{display:flex;gap:12px;align-items:center;padding:4px 20px 14px}
-  .babyhead .pic{width:56px;height:56px;border-radius:22px;object-fit:cover;border:3px solid #fff;box-shadow:var(--shadow)}
-  .babyhead h2{font-family:'Fraunces',serif;font-weight:600;font-size:20px}
-  .babyhead p{font-size:12.5px;color:var(--ink-soft);font-weight:600;margin-top:2px}
+body {
+  font-family:var(--font-sans); color:var(--ink);
+  background:var(--bg-app);
+  min-height:100dvh; overflow:hidden;
+}
+#app { position:relative; overflow:hidden; height:100dvh; }
 
-  /* cards / feed */
-  .card{background:var(--card);margin:0 16px 16px;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
-  .card .who{display:flex;align-items:center;gap:9px;padding:12px 14px 9px}
-  .card .who img{width:30px;height:30px;border-radius:50%;object-fit:cover}
-  .card .who b{font-size:13.5px}
-  .card .who span{font-size:11.5px;color:var(--ink-soft);margin-left:auto;font-weight:700}
-  .ph{width:100%;height:230px;object-fit:cover;display:block}
-  .cap{padding:11px 15px 4px;font-size:14.5px;line-height:1.5;color:var(--ink)}
-  .milestone-chip{display:inline-flex;align-items:center;gap:6px;margin:10px 15px 2px;background:#fbeede;color:#c98a3e;
-    border:1px solid #f0dcbd;padding:5px 11px;border-radius:999px;font-size:12px;font-weight:800}
-  .react{display:flex;align-items:center;gap:14px;padding:10px 15px 14px;color:var(--ink-soft);font-size:13px;font-weight:700}
-  .react .heart{display:flex;align-items:center;gap:6px;color:var(--rose);cursor:pointer;user-select:none;transition:transform .12s}
-  .react .heart:active{transform:scale(1.25)}
-  .react .faces{display:flex;margin-left:2px}
-  .react .faces img{width:22px;height:22px;border-radius:50%;border:2px solid #fff;margin-left:-8px;object-fit:cover}
-  .react .cmt{margin-left:auto;display:flex;align-items:center;gap:6px}
+/* Landscape phones / small tablets */
+@media(min-width:480px){
+  body { background:#efe8d7; }
+  #app { max-width:680px; margin:0 auto; box-shadow:0 0 40px rgba(80,60,20,.1); background:var(--bg-app); }
+  .cal-grid { padding:0 var(--space-lg); }
+  .cal-cell { padding:6px 8px; font-size:var(--text-sm); }
+  .cal-cell.today .day-num { width:26px; height:26px; font-size:12px; }
+  .polaroid { width:60px; }
+  .text-post { width:68px; font-size:8px; }
+  .sheet { max-width:680px; left:50%; transform:translate(-50%,100%); }
+  .sheet.open { transform:translate(-50%,0); }
+  .input-field, .btn, .role-btn, .invite-box, .input-label { max-width:440px; }
+  .welcome-content, .step-content { padding-left:var(--space-2xl); padding-right:var(--space-2xl); }
+}
 
-  .daystamp{text-align:center;font-size:12px;font-weight:800;color:var(--peach-deep);letter-spacing:.4px;margin:6px 0 14px;text-transform:uppercase}
+/* Tablets */
+@media(min-width:640px){
+  .year-grid { grid-template-columns:repeat(4,1fr); gap:var(--space-lg); }
+  .milestone-card .ms-img { height:260px; }
+  .moments-grid { grid-template-columns:repeat(4,1fr); gap:var(--space-sm); }
+  .profile-avatar { width:120px; height:120px; font-size:40px; }
+}
 
-  /* milestones list */
-  .agegroup{font-family:'Fraunces',serif;font-weight:600;font-size:16px;color:var(--ink);margin:6px 20px 10px}
-  .ms{display:flex;align-items:center;gap:13px;background:var(--card);margin:0 16px 11px;border:1px solid var(--line);
-    border-radius:20px;padding:13px 15px;box-shadow:var(--shadow)}
-  .ms .tick{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);flex:none;display:flex;align-items:center;justify-content:center;font-size:15px;color:transparent}
-  .ms.done .tick{background:var(--sage);border-color:var(--sage);color:#fff}
-  .ms h4{font-size:14.5px;font-weight:800;color:var(--ink)}
-  .ms p{font-size:12px;color:var(--ink-soft);font-weight:600;margin-top:1px}
-  .ms.done h4{color:var(--ink-soft)}
-  .ms .go{margin-left:auto;color:var(--peach-deep);font-weight:800;font-size:18px}
+/* Wide desktop */
+@media(min-width:900px){
+  #app { max-width:720px; }
+  .year-grid { grid-template-columns:repeat(4,1fr); gap:24px 20px; padding:0 var(--space-xl) var(--space-xl); }
+  .moments-grid { gap:var(--space-md); }
+  .cal-grid { padding:0 var(--space-xl); }
+}
 
-  /* post screen */
-  .postwrap{flex:1;display:flex;flex-direction:column;padding:8px 20px 20px}
-  .photo-drop{flex:1;min-height:230px;border-radius:26px;background:
-      linear-gradient(135deg,#fbe7d3,#f7d9c4);border:2px dashed #e7b48f;
-      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#c08358;cursor:pointer}
-  .photo-drop .cam{font-size:42px}
-  .photo-drop b{font-weight:800;font-size:15px}
-  .photo-drop span{font-size:12px;color:#b78a6b}
-  .cap-input{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:13px 15px;
-    font-family:inherit;font-size:14px;color:var(--ink);min-height:64px;box-shadow:var(--shadow)}
-  .cap-input::placeholder{color:#bcab9e}
-  .ms-toggle{margin-top:12px;display:flex;align-items:center;gap:10px;background:#fbeede;border:1px solid #f0dcbd;
-    border-radius:16px;padding:12px 15px;font-size:13px;font-weight:800;color:#c98a3e}
-  .ms-toggle .sw{margin-left:auto;width:42px;height:24px;background:var(--gold);border-radius:999px;position:relative}
-  .ms-toggle .sw:after{content:"";position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;background:#fff}
-  .speed{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;font-size:12px;font-weight:800;color:var(--sage)}
+/* Screens */
+.screen { display:none; flex-direction:column; position:absolute; inset:0; overflow:hidden }
+.screen.active { display:flex }
+@keyframes screenIn { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+.screen.active { animation:screenIn .3s var(--ease-out) }
 
-  /* family screen */
-  .invite{margin:2px 16px 18px;background:linear-gradient(135deg,#fff,#fdf4ea);border:1px solid var(--line);
-    border-radius:24px;padding:18px;box-shadow:var(--shadow)}
-  .invite h3{font-family:'Fraunces',serif;font-weight:600;font-size:17px}
-  .invite p{font-size:12.5px;color:var(--ink-soft);font-weight:600;margin:5px 0 13px;line-height:1.5}
-  .link-row{display:flex;gap:8px}
-  .link-row .lk{flex:1;background:#f6ebdd;border:1px dashed #e2c9ac;border-radius:13px;padding:11px 13px;font-size:12px;font-weight:700;color:#9c8164;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-  .secrole{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--peach-deep);margin:4px 20px 10px}
-  .member{display:flex;align-items:center;gap:12px;background:var(--card);margin:0 16px 10px;border:1px solid var(--line);
-    border-radius:18px;padding:11px 14px;box-shadow:var(--shadow)}
-  .member img{width:40px;height:40px;border-radius:50%;object-fit:cover}
-  .member b{font-size:14px}
-  .member p{font-size:11.5px;color:var(--ink-soft);font-weight:600}
-  .pill{margin-left:auto;font-size:10.5px;font-weight:800;padding:4px 9px;border-radius:999px;text-transform:uppercase;letter-spacing:.3px}
-  .pill.parent{background:#e9f2e6;color:#6e9268}
-  .pill.fam{background:#fbeede;color:#c98a3e}
+/* Nursery decorations */
+.nursery { position:relative; flex:1; display:flex; flex-direction:column; overflow:hidden }
+.mobile { position:absolute; top:0; left:0; right:0; height:130px; pointer-events:none; z-index:1 }
+.mobile .hook { position:absolute; top:-14px; width:28px; height:28px; border-radius:50% }
+.mobile .hook:nth-child(1){left:38%;background:var(--sage)}
+.mobile .hook:nth-child(2){left:52%;background:#d4a8b0}
+.mobile .hook:nth-child(3){right:16%;background:var(--cloud)}
+.mobile .string { position:absolute; width:1px; background:#c5b9a8 }
+.mobile .string:nth-child(4){left:40%;top:14px;height:60px}
+.mobile .string:nth-child(5){left:54%;top:14px;height:80px}
+.mobile .string:nth-child(6){right:18%;top:14px;height:40px}
+.mobile .ornament { position:absolute }
+.mobile .star-o{left:14%;top:28px;font-size:22px;color:var(--gold)}
+.mobile .moon-o{left:36%;top:68px;font-size:20px}
+.mobile .ball-o{left:50%;top:54px;width:14px;height:14px;border-radius:50%;background:#e8b0b8}
+.floor { position:absolute; bottom:0; left:0; right:0; height:70px; pointer-events:none; z-index:1; display:flex; align-items:flex-end; justify-content:space-between; padding:0 16px 8px }
+.floor .bear{font-size:34px;opacity:.8;transform:translateY(8px)}
+.floor .cloud-f{font-size:24px;opacity:.4;color:var(--cloud);margin-bottom:14px}
+.floor .star-f{font-size:14px;color:var(--gold);margin-bottom:20px;opacity:.7}
+.floor .bunny{font-size:34px;opacity:.8;transform:translateY(8px)}
 
-  /* buttons */
-  .btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--peach-deep);color:#fff;font-weight:800;
-    font-size:15px;border:none;border-radius:18px;padding:15px;cursor:pointer;box-shadow:0 8px 18px rgba(214,138,108,.4)}
-  .btn.ghost{background:#fff;color:var(--peach-deep);border:1.5px solid #f0cdb8;box-shadow:var(--shadow)}
-  .pad{padding:0 20px}
+@keyframes sway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
+.mobile{transform-origin:top center;animation:sway 4s ease-in-out infinite}
 
-  /* bottom nav */
-  .nav{display:flex;background:#fffdfa;border-top:1px solid var(--line);padding:9px 8px 12px;justify-content:space-around}
-  .nav button{background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;
-    font-size:10px;font-weight:800;color:#c3b1a3;padding:4px 12px;border-radius:14px;font-family:inherit}
-  .nav button .ic{font-size:20px;line-height:1}
-  .nav button.active{color:var(--peach-deep)}
-  .nav .post-btn{background:var(--peach-deep);color:#fff;width:48px;height:48px;border-radius:50%;justify-content:center;
-    box-shadow:0 8px 16px rgba(214,138,108,.45);margin-top:-14px}
-  .nav .post-btn .ic{font-size:24px}
-  .sectiontitle{font-family:'Fraunces',serif;font-weight:600;font-size:18px;padding:2px 20px 12px}
+/* Welcome */
+.screen[data-screen="welcome"]{background:var(--bg-welcome)}
+.welcome-content {
+  flex:1; display:flex; flex-direction:column; align-items:center;
+  padding:calc(var(--space-lg) + var(--safe-top)) var(--space-xl) calc(var(--space-2xl) + var(--safe-bottom)); z-index:2; gap:var(--space-xs);
+  overflow-y:auto;
+}
+.welcome-content::before,.welcome-content::after{content:'';flex:1 1 auto}
+.crib-icon { width:70px; height:40px; border:3px solid #a08060; border-top:none; border-radius:0 0 10px 10px; position:relative; margin-bottom:4px }
+.crib-icon::before{content:"";position:absolute;bottom:0;left:8px;right:8px;top:0;background:repeating-linear-gradient(90deg,#a08060 0,#a08060 2px,transparent 2px,transparent 10px);opacity:.5}
+.crib-icon::after{content:".. ";position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:4px;color:#a08060}
+.welcome-content h1{font-family:var(--font-serif);font-size:var(--text-2xl);font-weight:600;letter-spacing:-.7px;line-height:1.1;margin-top:8px;text-align:center;text-wrap:balance}
+.welcome-content .sub{font-size:var(--text-base);color:var(--ink-soft);text-align:center;margin-bottom:var(--space-lg);font-weight:600;font-style:italic;letter-spacing:.2px;text-wrap:balance}
 
-  .hint{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:rgba(74,59,52,.9);color:#fff;
-    font-size:12px;font-weight:700;padding:8px 16px;border-radius:999px;backdrop-filter:blur(4px);
-    transition:background .3s ease,transform .3s ease}
+.brand-mark{font-family:var(--font-serif);font-variation-settings:'SOFT' 0,'WONK' 1;font-size:30px;font-weight:600;letter-spacing:-.8px;color:var(--green);margin-bottom:6px}
+.role-row{display:flex;gap:18px;justify-content:center;margin-top:var(--space-lg)}
+.role-btn {
+  width:150px; height:150px; display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
+  gap:12px; padding:20px; border-radius:16px; border:none; cursor:pointer; text-align:left;
+  font-family:var(--font-sans); transition:transform .12s ease,box-shadow .12s ease;
+}
+.role-btn:active{transform:scale(.96)!important;transition:transform .05s}
+.role-btn .role-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:19px;flex:none;background:rgba(255,255,255,.2)}
+.role-btn strong{display:block;font-size:16px;font-weight:700;line-height:1.2}
+.role-btn span.desc{font-size:12px;font-weight:500;opacity:.85;display:block;line-height:1.4;margin-top:-8px}
+.parent-btn{background:var(--blue);color:#fff;box-shadow:0 8px 28px rgba(50,98,148,.3),inset 0 1px 0 rgba(255,255,255,.12)}
+.family-btn{background:var(--green);color:#fff;box-shadow:0 8px 28px rgba(126,168,74,.32),inset 0 1px 0 rgba(255,255,255,.15)}
+.farm-row{position:absolute;bottom:calc(56px + var(--safe-bottom));left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 40px;font-size:30px;pointer-events:none;z-index:1}
+.farm-row .chicks{font-size:18px;letter-spacing:-4px}
+.mobile,.floor,.crib-icon,.step-emoji{display:none!important}
 
-  /* ── Redesign polish ── */
-  html{scroll-behavior:smooth}
+/* Steps */
+.screen[data-screen="step1"]{background:var(--bg-step1)}
+.screen[data-screen="step2"]{background:var(--bg-step2)}
+.screen[data-screen="step3"]{background:var(--bg-step3)}
+.step-content{flex:1;display:flex;flex-direction:column;align-items:center;padding:calc(var(--space-lg) + var(--safe-top)) var(--space-xl) calc(var(--space-2xl) + var(--safe-bottom));z-index:2;overflow-y:auto}
+.step-content::before,.step-content::after{content:'';flex:1 1 auto}
+.progress-stars{display:flex;gap:8px;margin-bottom:12px;font-size:20px}
+.progress-stars .star{color:var(--gold-light);transition:color .3s}
+.progress-stars .star.filled{color:var(--gold)}
+.step-emoji{font-size:44px;margin-bottom:6px}
+.step-content h1{font-family:var(--font-sans);font-size:var(--text-2xl);font-weight:600;letter-spacing:-.4px;line-height:1.15;text-align:center;margin-bottom:6px;text-wrap:balance}
+.step-content .sub{font-size:var(--text-sm);color:var(--ink-soft);text-align:center;margin-bottom:var(--space-xl);font-weight:500;text-wrap:balance}
 
-  /* Grain overlay — breaks digital flatness */
-  body::after{
-    content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.03;
-    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
+.input-field {
+  width:100%; max-width:360px; padding:var(--space-md) var(--space-lg); border:1.5px solid #fff; border-radius:16px;
+  background:rgba(255,255,255,.72); font-family:var(--font-sans); font-size:var(--text-base); color:var(--ink);
+  outline:none; transition:border-color .2s,box-shadow .2s; min-height:48px;
+  box-shadow:0 1px 2px rgba(0,0,0,.05);
+}
+.input-field:focus{border-color:var(--terracotta);box-shadow:0 0 0 3px rgba(72,133,193,.12)}
+.input-field::placeholder{color:var(--ink-light)}
+.input-label{width:100%;max-width:360px;text-align:left;font-size:12.5px;font-weight:700;color:var(--ink-soft);margin-bottom:6px;margin-top:16px}
 
-  /* Text polish */
-  .pitch p{text-wrap:balance}
-  .cap{text-wrap:pretty}
+.photo-upload {
+  width:100px; height:100px; border-radius:50%; border:2.5px dashed var(--line);
+  display:flex; align-items:center; justify-content:center; font-size:32px;
+  color:var(--ink-light); cursor:pointer; position:relative; margin-bottom:8px;
+  background:rgba(255,255,255,.5); transition:border-color .2s,transform .15s;
+}
+.photo-upload:active{transform:scale(.92);transition:transform .05s}
+.photo-upload.has-photo{border-style:solid;border-color:var(--sage);overflow:hidden}
+.photo-upload.has-photo img{width:100%;height:100%;object-fit:cover}
+.photo-upload .cam-badge {
+  position:absolute; bottom:0; right:-4px; width:28px; height:28px; border-radius:50%;
+  background:var(--terracotta); color:#fff; font-size:14px;
+  display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(72,133,193,.3);
+}
 
-  /* Daystamp — refined from all-caps to small-caps with decorative line */
-  .daystamp{text-transform:none;font-variant:small-caps;letter-spacing:.08em;
-    display:flex;align-items:center;gap:12px;padding:0 20px;margin:10px 0 16px}
-  .daystamp::before,.daystamp::after{content:"";flex:1;height:1px;background:var(--line)}
+.btn {
+  width:100%; max-width:360px; padding:var(--space-md); border-radius:16px; border:none; cursor:pointer;
+  font-family:var(--font-sans); font-size:var(--text-base); font-weight:800;
+  transition:transform .1s,box-shadow .12s; margin-top:var(--space-md); min-height:48px;
+}
+.btn:active{transform:scale(.96)!important;transition:transform .05s}
+.btn.primary{background:var(--terracotta);color:#fff;box-shadow:0 8px 24px rgba(50,98,148,.25),inset 0 1px 0 rgba(255,255,255,.1)}
+.btn.peach{background:var(--peach-btn);color:#fff;box-shadow:0 8px 24px rgba(190,130,110,.3),inset 0 1px 0 rgba(255,255,255,.15)}
+.btn.text-btn{background:none;color:var(--ink-soft);font-size:14px;font-weight:700;box-shadow:none;margin-top:6px}
 
-  /* ── Hover, active, & transition states ── */
+.invite-box{width:100%;max-width:360px;background:#fff;border-radius:20px;padding:20px;margin-bottom:8px;box-shadow:0 1px 4px rgba(80,60,20,.08),0 4px 24px rgba(80,60,20,.13)}
+.invite-box .label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--ink-light);margin-bottom:10px;text-align:center}
+.invite-link-row{display:flex;align-items:center;gap:8px}
+.invite-link-row .link{flex:1;font-size:12.5px;font-weight:600;color:var(--ink-soft);background:var(--card-warm);padding:10px 12px;border-radius:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.invite-link-row .copy-btn {
+  padding:8px 14px; border-radius:10px; border:none; cursor:pointer;
+  background:var(--terracotta); color:#fff; font-size:12px; font-weight:800;
+  font-family:var(--font-sans); display:flex; align-items:center; gap:5px; transition:transform .08s;
+}
+.invite-link-row .copy-btn:active{transform:scale(.9)}
+.invite-box .note{font-size:12px;color:var(--ink-light);margin-top:10px;line-height:1.5;font-weight:600}
 
-  /* Buttons */
-  .btn{transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
-  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(214,138,108,.45)}
-  .btn:active{transform:translateY(0) scale(.97);box-shadow:0 4px 10px rgba(214,138,108,.3)}
-  .btn.ghost:hover{background:#fef8f4;border-color:var(--peach)}
-  .btn.ghost:active{background:#fdf0e8}
+/* App shell */
+.screen[data-screen="main"]{background:var(--bg-app)}
+.app-shell{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.tab-view{flex:1;position:relative;overflow:hidden}
+.tab-pane{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:none;scroll-behavior:smooth;padding-bottom:110px}
+.tab-pane::-webkit-scrollbar{width:0}
+.tab-pane.active{display:block}
 
-  /* Cards */
-  .card{transition:transform .3s ease,box-shadow .3s ease}
-  .card:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(120,80,55,.18)}
+.app-shell{position:relative}
+.tab-bar {
+  position:absolute; left:50%; bottom:calc(16px + var(--safe-bottom));
+  transform:translateX(-50%); width:280px;
+  display:flex; background:rgba(250,246,239,.92); backdrop-filter:blur(20px) saturate(1.4); -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  border:1px solid rgba(37,26,14,.12); border-radius:60px;
+  box-shadow:0 2px 6px rgba(0,0,0,.06),0 10px 30px rgba(80,60,20,.1);
+  padding:5px 10px; justify-content:space-around; z-index:20;
+}
+.tab-bar button {
+  background:none; border:none; display:flex; flex-direction:column; align-items:center;
+  gap:2px; cursor:pointer; font-family:var(--font-sans); font-size:10px; font-weight:500;
+  color:var(--ink-soft); padding:6px 12px; border-radius:14px; transition:color .12s; position:relative;
+  min-height:44px; min-width:44px;
+}
+.tab-bar button .tab-ic{font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center}
+.tab-bar button.active{color:var(--blue);font-weight:600}
+.tab-bar button:active{transform:scale(.9);transition:transform .05s}
+.app-shell:has(.fab:not(.hidden)) .tab-bar{transform:translateX(calc(-50% - 34px))}
 
-  /* Nav buttons */
-  .nav button{transition:color .2s ease,background .2s ease,transform .2s ease}
-  .nav button:hover:not(.post-btn){color:var(--peach-deep);background:rgba(232,154,126,.08)}
-  .nav .post-btn{transition:transform .2s ease,box-shadow .2s ease}
-  .nav .post-btn:hover{transform:scale(1.1) translateY(-2px);box-shadow:0 12px 24px rgba(214,138,108,.55)}
-  .nav .post-btn:active{transform:scale(.92)}
+/* Calendar */
+.cal-header{display:flex;align-items:center;justify-content:space-between;padding:calc(16px + var(--safe-top)) 20px 8px}
+.view-toggle{display:flex;background:#fff;border-radius:20px;padding:3px;box-shadow:0 2px 10px rgba(80,60,20,.08)}
+.view-toggle button{padding:6px 16px;border:none;border-radius:17px;cursor:pointer;font-family:var(--font-sans);font-size:12px;font-weight:800;background:none;color:var(--ink-soft);transition:all .12s}
+.view-toggle button:active{transform:scale(.93)}
+.view-toggle button.active{background:var(--sky);color:var(--ink);box-shadow:0 1px 4px rgba(72,133,193,.25)}
 
-  /* Heart reaction */
-  .react .heart{transition:transform .15s cubic-bezier(.34,1.56,.64,1)}
-  .react .heart:hover{transform:scale(1.15)}
+.cal-month-nav{display:flex;align-items:center;justify-content:center;gap:16px;padding:4px 20px 12px}
+.cal-month-nav .month-name{font-family:var(--font-display);font-size:var(--text-xl);font-weight:600;color:var(--accent);font-style:italic;min-width:110px;text-align:center;letter-spacing:-.5px}
+.cal-month-nav button{background:none;border:none;cursor:pointer;font-size:18px;color:var(--ink-soft);padding:8px 12px;font-weight:700;border-radius:8px;transition:color .12s,transform .08s;min-width:44px;min-height:44px}
+.cal-month-nav button:active{transform:scale(.8);color:var(--ink)}
 
-  /* Milestone rows */
-  .ms{transition:transform .2s ease,box-shadow .2s ease,background .2s ease;cursor:pointer}
-  .ms:hover{transform:translateX(4px);box-shadow:0 14px 36px rgba(120,80,55,.15);background:#fefcf9}
-  .ms .go{transition:transform .2s ease}
-  .ms:hover .go{transform:scale(1.2)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);padding:10px 8px 14px;margin:0 12px;background:#fff;border-radius:20px;border:none;box-shadow:0 1px 4px rgba(80,60,20,.08),0 4px 24px rgba(80,60,20,.13)}
+.cal-day-header{text-align:center;font-size:10px;font-weight:600;color:var(--ink-light);padding:4px 0 10px;letter-spacing:.8px}
+.cal-cell {
+  aspect-ratio:1; display:flex; flex-direction:column; align-items:flex-start;
+  padding:4px 6px; font-size:10px; font-weight:500; color:var(--ink-light);
+  position:relative; border-top:1px solid #ebe6dc; cursor:default; transition:background .12s;
+}
+.cal-cell:not(:nth-child(7n+1)){border-left:1px solid #f1ede4}
+.cal-cell.has-post{cursor:pointer}
+.cal-cell.has-post:active{background:rgba(72,133,193,.08);border-radius:8px}
+.cal-cell.today .day-num { color:#fff; font-weight:800; background:var(--today); width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:11px; box-shadow:0 2px 8px rgba(196,120,94,.35),0 0 0 3px rgba(196,120,94,.12); }
+.cal-cell.empty{border-top:none}
 
-  /* Member rows */
-  .member{transition:background .2s ease,transform .2s ease}
-  .member:hover{background:#fef8f4;transform:translateX(3px)}
+.polaroid {
+  position:absolute; width:50px; background:#fff; padding:3px 3px 7px;
+  border-radius:3px; box-shadow:0 3px 12px rgba(80,60,20,.22),0 1px 3px rgba(80,60,20,.1);
+  z-index:5; cursor:pointer; transition:transform .2s var(--ease-out),box-shadow .2s var(--ease-out); top:0; right:0;
+}
+.polaroid:active{transform:scale(1.15)!important;z-index:10}
+.polaroid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:1px;display:block}
+.polaroid .hearts{display:flex;gap:1px;justify-content:center;margin-top:2px;font-size:7px;color:var(--rose)}
+.cal-cell:nth-child(3n) .polaroid{transform:rotate(3deg)}
+.cal-cell:nth-child(3n+1) .polaroid{transform:rotate(-4deg)}
+.cal-cell:nth-child(3n+2) .polaroid{transform:rotate(1.5deg)}
+.text-post{transform:rotate(-2deg)}
 
-  /* Photo drop zone */
-  .photo-drop{transition:border-color .25s ease,background .25s ease,transform .2s ease}
-  .photo-drop:hover{border-color:#d49a6e;background:linear-gradient(135deg,#f7ddc4,#f3ccb0);transform:scale(1.01)}
-  .photo-drop:active{transform:scale(.99)}
+.text-post {
+  position:absolute; width:58px; padding:5px; background:var(--surface); border-radius:5px;
+  font-family:var(--font-hand); font-size:8px; line-height:1.25; color:var(--ink); z-index:5;
+  box-shadow:0 3px 10px rgba(80,60,20,.16); cursor:pointer;
+  transition:transform .12s; font-weight:400; top:0; right:0; overflow:hidden; max-height:100%;
+}
+.text-post:active{transform:scale(1.1)!important;z-index:10}
 
-  /* Invite card */
-  .invite{transition:box-shadow .25s ease,transform .25s ease}
-  .invite:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(120,80,55,.16)}
+.doodle{position:absolute;pointer-events:none;opacity:.55;z-index:0}
 
-  /* Milestone toggle */
-  .ms-toggle{transition:background .2s ease;cursor:pointer}
-  .ms-toggle:hover{background:#f8e4cb}
-  .ms-toggle .sw{transition:background .2s ease}
+.fab {
+  position:absolute; bottom:calc(24px + var(--safe-bottom)); left:calc(50% + 116px); right:auto; width:52px; height:52px;
+  border-radius:50%; background:var(--blue); color:#fff; border:none;
+  font-size:26px; cursor:pointer; z-index:21;
+  box-shadow:0 1px 2px rgba(72,133,193,.34),0 4px 14px rgba(72,133,193,.3);
+  display:flex; align-items:center; justify-content:center; transition:transform .2s var(--ease-out);
+}
+.fab:active{transform:scale(.85)!important;transition:transform .05s}
+.fab.hidden{display:none}
+@keyframes fabGlow{0%,100%{box-shadow:0 1px 2px rgba(72,133,193,.34),0 4px 14px rgba(72,133,193,.3)}50%{box-shadow:0 1px 2px rgba(72,133,193,.4),0 6px 20px rgba(72,133,193,.45)}}
+.fab:not(.hidden){animation:fabGlow 3s ease-in-out infinite}
 
-  /* Avatar hover */
-  .avatar{transition:transform .2s ease,box-shadow .2s ease;cursor:pointer}
-  .avatar:hover{transform:scale(1.08);box-shadow:0 6px 18px rgba(120,80,55,.2)}
+/* Year view */
+.year-nav{display:flex;align-items:center;justify-content:center;gap:20px;padding:calc(16px + var(--safe-top)) 20px 20px}
+.year-nav .year-num{font-family:var(--font-serif);font-size:var(--text-3xl);font-weight:700;color:var(--ink);letter-spacing:-.8px}
+.year-nav button{background:none;border:none;cursor:pointer;font-size:18px;color:var(--ink-soft);padding:6px 10px;font-weight:700;border-radius:8px;transition:transform .08s}
+.year-nav button:active{transform:scale(.8)}
+.year-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px 16px;padding:0 20px 24px}
+.mini-month{cursor:pointer;padding:6px;border-radius:10px;transition:background .12s}
+.mini-month:active{background:rgba(72,133,193,.1)}
+.mini-month .mm-name{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:6px}
+.mini-month .mm-header{display:grid;grid-template-columns:repeat(7,1fr);font-size:8px;color:var(--ink-light);font-weight:800;text-align:center}
+.mini-month .mm-days{display:grid;grid-template-columns:repeat(7,1fr);font-size:9px;color:var(--ink-soft);text-align:center;line-height:1.8}
+.mini-month .mm-days .today-mini{background:var(--today);color:#fff;border-radius:50%;width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;font-size:8px}
+.mini-month .mm-days .has-dot{position:relative}
+.mini-month .mm-days .has-dot::after{content:"";position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:3px;height:3px;border-radius:50%;background:var(--terracotta)}
 
-  /* Baby pic hover */
-  .babyhead .pic{transition:transform .2s ease,box-shadow .2s ease}
-  .babyhead .pic:hover{transform:scale(1.06);box-shadow:0 8px 22px rgba(120,80,55,.2)}
+/* Milestones */
+.milestones-header{padding:calc(var(--space-lg) + var(--safe-top)) var(--space-lg) var(--space-md);display:flex;align-items:center;justify-content:space-between}
+.milestones-header h1{font-family:var(--font-display);font-style:italic;font-size:var(--text-2xl);font-weight:600;letter-spacing:-.5px;color:var(--accent)}
+.milestones-header .deco{font-size:18px;display:flex;gap:6px;opacity:.6}
+.milestone-card{margin:0 var(--space-lg) var(--space-lg);padding:var(--space-lg);background:var(--card);border-radius:20px;overflow:visible;box-shadow:0 2px 12px rgba(80,60,20,.06),inset 0 1px 0 rgba(255,255,255,.5);transition:transform .2s var(--ease-out),box-shadow .2s var(--ease-out);cursor:pointer;border:1px solid rgba(228,220,202,.4)}
+.milestone-card:first-child{border-top:1px solid rgba(228,220,202,.4);padding-top:20px}
+.milestone-card:active{transform:scale(.98);transition:transform .05s}
+.milestone-info{padding:0;display:flex;gap:14px;align-items:flex-start}
+.milestone-dot{width:40px;height:40px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-size:20px;background:rgba(255,146,30,.13)}
+.milestone-info h3{font-size:var(--text-base);font-weight:800;display:inline}
+.milestone-info .meta{font-size:12px;color:var(--ink-light);font-weight:600;display:inline;margin-left:6px}
+.milestone-info .desc{font-size:13.5px;color:var(--ink-soft);font-weight:600;margin-top:6px;line-height:1.5}
+.milestone-card .ms-img{width:100%;height:200px;object-fit:cover;display:block;border-radius:14px;margin-top:14px;box-shadow:0 2px 8px rgba(80,60,20,.1)}
+.milestone-card .ms-react{display:none}
+.ms-heart-btn {
+  display:flex; align-items:center; gap:5px; background:none; border:1.5px solid var(--line);
+  border-radius:20px; padding:6px 12px; cursor:pointer; font-family:var(--font-sans);
+  font-size:13px; font-weight:700; color:var(--ink-soft); transition:all .12s;
+}
+.ms-heart-btn:active{transform:scale(.88);transition:transform .05s}
+.ms-heart-btn.liked{background:rgba(218,75,145,.08);border-color:var(--rose);color:var(--rose)}
+@keyframes heartPop{0%{transform:scale(1)}30%{transform:scale(1.3)}100%{transform:scale(1)}}
+.ms-heart-btn.liked .h-icon{animation:heartPop .35s var(--ease-out)}
 
-  /* Pill badges */
-  .pill{transition:transform .15s ease}
-  .member:hover .pill{transform:scale(1.05)}
+/* Profile */
+.profile-header{display:flex;flex-direction:column;align-items:center;padding:calc(var(--space-lg) + var(--safe-top)) var(--space-lg) var(--space-lg);position:relative}
+.profile-avatar{width:110px;height:110px;border-radius:50%;border:3.5px solid #fff;background:linear-gradient(145deg,#fdfaf3,#f1ead9);display:flex;align-items:center;justify-content:center;font-size:36px;color:var(--terracotta);position:relative;box-shadow:0 8px 28px rgba(80,60,20,.14),0 2px 6px rgba(80,60,20,.08);overflow:hidden}
+.profile-avatar img{width:100%;height:100%;object-fit:cover}
+.profile-avatar .edit-badge{position:absolute;bottom:2px;right:2px;width:28px;height:28px;border-radius:50%;background:var(--terracotta);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(72,133,193,.3);transition:transform .1s;border:none}
+.profile-avatar .edit-badge:active{transform:scale(.85)}
+.profile-avatar .edit-badge.hidden{display:none}
+.profile-header h1{font-family:var(--font-serif);font-size:var(--text-xl);font-weight:600;margin-top:14px;letter-spacing:-.5px}
+.profile-deco{position:absolute;pointer-events:none;opacity:.4}
 
-  /* ── Focus rings (accessibility) ── */
-  :focus-visible{outline:2.5px solid var(--peach-deep);outline-offset:3px}
-  .nav button:focus-visible{border-radius:14px}
-  .btn:focus-visible{outline-offset:4px;border-radius:18px}
+.stats-row{display:flex;gap:var(--space-md);padding:0 var(--space-lg);margin-bottom:var(--space-lg);container-type:inline-size;container-name:stats}
+.stat-card{flex:1;background:var(--card);border-radius:16px;padding:var(--space-md) var(--space-md);text-align:center;box-shadow:0 2px 12px rgba(80,60,20,.07),inset 0 1px 0 rgba(255,255,255,.6);cursor:pointer;transition:transform .2s var(--ease-out),box-shadow .2s var(--ease-out)}
+.stat-card:active{transform:scale(.94);transition:transform .05s}
+.stat-card .stat-line{width:28px;height:3.5px;border-radius:2px;margin:0 auto 10px}
+.stat-card .stat-line.orange{background:var(--green)}
+.stat-card .stat-line.purple{background:var(--blue)}
+.stat-card .stat-line.teal{background:var(--accent)}
+.stat-card .stat-val{font-size:var(--text-lg);font-weight:800;color:var(--ink);margin-bottom:2px;font-variant-numeric:tabular-nums}
+.stat-card .stat-label{font-size:var(--text-xs);font-weight:700;color:var(--ink-light)}
+@container stats (min-width: 400px){
+  .stat-card{padding:var(--space-lg) var(--space-md)}
+  .stat-card .stat-line{width:28px;margin-bottom:12px}
+}
 
-  /* ── View transition animation ── */
-  @keyframes viewFadeIn{from{opacity:0}to{opacity:1}}
-  .view.active{animation:viewFadeIn .25s ease}
+.viewing-as{margin:0 var(--space-lg) var(--space-lg);background:var(--card);border-radius:16px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(80,60,20,.06),inset 0 1px 0 rgba(255,255,255,.5);border:1px solid rgba(228,220,202,.3)}
+.viewing-as .va-label{font-size:var(--text-xs);color:var(--ink-light);font-weight:700}
+.viewing-as .va-name{font-size:var(--text-base);font-weight:800;margin-top:2px}
+.viewing-as .va-switch{font-size:var(--text-sm);font-weight:700;color:var(--terracotta);cursor:pointer;background:none;border:none;font-family:var(--font-sans);min-height:44px;display:flex;align-items:center}
+.viewing-as .va-switch:active{opacity:.5}
 
-  /* ── Staggered entry — elements cascade on view switch ── */
-  @keyframes slideUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-  .view.active .scroll>:nth-child(1){animation:slideUp .4s cubic-bezier(.22,1,.36,1) both}
-  .view.active .scroll>:nth-child(2){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .06s both}
-  .view.active .scroll>:nth-child(3){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .12s both}
-  .view.active .scroll>:nth-child(4){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .18s both}
-  .view.active .scroll>:nth-child(5){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .24s both}
-  .view.active .scroll>:nth-child(6){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .30s both}
-  .view.active .scroll>:nth-child(n+7){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .36s both}
-  .view.active .postwrap{animation:slideUp .45s cubic-bezier(.22,1,.36,1) both}
-  .view.active .postwrap>:nth-child(2){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .08s both}
-  .view.active .postwrap>:nth-child(3){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .14s both}
-  .view.active .postwrap>:nth-child(4){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .20s both}
-  .view.active .postwrap>:nth-child(5){animation:slideUp .4s cubic-bezier(.22,1,.36,1) .26s both}
+.moments-section{padding:0 var(--space-lg) var(--space-lg);container-type:inline-size;container-name:moments}
+.moments-section h3{font-size:var(--text-base);font-weight:800;margin-bottom:var(--space-md);color:var(--ink);letter-spacing:-.2px}
+.moments-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,80px),1fr));gap:var(--space-sm)}
+.moments-grid .moment{aspect-ratio:1;border-radius:14px;overflow:hidden;background:var(--card-warm);transition:transform .2s var(--ease-out),box-shadow .2s var(--ease-out);cursor:pointer;box-shadow:0 2px 8px rgba(80,60,20,.08)}
+.moments-grid .moment:active{transform:scale(.92);transition:transform .05s}
+.moments-grid .moment img{width:100%;height:100%;object-fit:cover}
 
-  /* ── Colored, tinted shadows for depth ── */
-  .card{box-shadow:0 10px 30px rgba(186,140,100,.12),0 2px 8px rgba(186,140,100,.06)}
-  .card:hover{box-shadow:0 20px 48px rgba(186,140,100,.18),0 4px 12px rgba(186,140,100,.08)}
+/* Sheets */
+.sheet-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.4);z-index:30;opacity:0;pointer-events:none;transition:opacity .25s}
+.sheet-backdrop.visible{opacity:1;pointer-events:auto}
+.sheet {
+  position:absolute; bottom:0; left:0; right:0; background:rgba(255,255,255,.92);
+  backdrop-filter:blur(28px) saturate(1.3); -webkit-backdrop-filter:blur(28px) saturate(1.3);
+  border-radius:24px 24px 0 0; z-index:31; padding:12px 24px calc(40px + var(--safe-bottom));
+  transform:translateY(100%); transition:transform .35s var(--ease-out); max-height:85%; overflow-y:auto;
+  box-shadow:0 -8px 40px rgba(80,60,20,.1),inset 0 1px 0 rgba(255,255,255,.6);
+}
+.sheet.open{transform:translateY(0)}
+.sheet:not(.open){box-shadow:none}
+.sheet .grab{width:36px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 16px}
+.sheet h2{font-family:var(--font-serif);font-size:var(--text-xl);font-weight:600;margin-bottom:4px;letter-spacing:-.3px}
+.sheet .sheet-sub{font-size:var(--text-sm);color:var(--ink-soft);font-weight:600;margin-bottom:var(--space-lg)}
+.sheet h2 .sheet-deco{float:right;font-size:16px;opacity:.5}
 
-  /* ── Reduce motion for accessibility ── */
-  @media(prefers-reduced-motion:reduce){
-    *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
-  }
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.chip{padding:8px 14px;border-radius:20px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:13px;font-weight:700;color:var(--ink);font-family:var(--font-sans);transition:all .15s var(--ease-out)}
+.chip:active{transform:scale(.92);transition:transform .05s}
+.chip.selected{background:var(--terracotta);color:#fff;border-color:var(--terracotta);box-shadow:0 2px 8px rgba(72,133,193,.25)}
+.relation-label{font-size:12.5px;font-weight:700;color:var(--ink-soft);margin:16px 0 10px}
+.relation-label span{font-weight:600;opacity:.7}
+
+.post-option{display:flex;align-items:center;gap:14px;padding:18px 16px;border-radius:16px;border:2px dashed;cursor:pointer;margin-bottom:12px;transition:transform .15s var(--ease-out),background .15s,border-color .15s}
+.post-option:active{transform:scale(.96)!important;transition:transform .05s}
+.post-option.photo{border-color:var(--green);background:rgba(161,204,106,.08)}
+.post-option.text-opt{border-color:var(--sky);background:rgba(146,191,236,.08)}
+.post-option .po-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none}
+.post-option.photo .po-icon{background:#fff;color:var(--green-hover)}
+.post-option.text-opt .po-icon{background:#fff;color:var(--blue-hover)}
+.post-option strong{font-size:14px;display:block;font-weight:800}
+.post-option .po-desc{font-size:12px;color:var(--ink-soft);font-weight:600;margin-top:1px}
+
+/* Text post sheet */
+.text-input-area {
+  width:100%; min-height:100px; padding:15px 18px; border:1.5px solid var(--line); border-radius:16px;
+  background:#fff; font-family:var(--font-sans); font-size:15px; color:var(--ink);
+  outline:none; resize:none; transition:border-color .2s,box-shadow .2s; margin-bottom:12px;
+}
+.text-input-area:focus{border-color:var(--terracotta);box-shadow:0 0 0 3px rgba(72,133,193,.12)}
+
+/* Photo preview in post sheet */
+.photo-preview-area {
+  width:100%; aspect-ratio:4/3; border-radius:16px; overflow:hidden; margin-bottom:12px;
+  background:var(--card-warm); display:flex; align-items:center; justify-content:center;
+  border:2px dashed var(--line); cursor:pointer; transition:border-color .2s;
+}
+.photo-preview-area.has-photo{border:none}
+.photo-preview-area img{width:100%;height:100%;object-fit:cover}
+.photo-preview-area .placeholder{text-align:center;color:var(--ink-light);font-weight:600}
+.photo-preview-area .placeholder .icon{font-size:36px;margin-bottom:8px}
+.photo-preview-area .placeholder .text{font-size:13px}
+
+/* Photo overlay */
+.photo-overlay{position:absolute;inset:0;background:rgba(30,20,15,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:40;display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;cursor:pointer}
+.photo-overlay.visible{display:flex}
+.photo-overlay img{max-width:100%;max-height:55%;object-fit:contain;border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,.45),0 4px 12px rgba(0,0,0,.2)}
+.photo-overlay .ov-caption{color:#fff;font-size:15px;font-weight:700;margin-top:16px;text-align:center}
+.photo-overlay .ov-hearts{display:flex;align-items:center;gap:8px;margin-top:12px;background:rgba(255,255,255,.15);border-radius:20px;padding:8px 16px;cursor:pointer;transition:background .12s;color:#fff;font-weight:700;font-size:14px}
+.photo-overlay .ov-hearts:active{transform:scale(.92);background:rgba(255,255,255,.25)}
+.photo-overlay .ov-close{position:absolute;top:calc(16px + var(--safe-top));right:16px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);color:#fff;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.photo-overlay .ov-close:active{background:rgba(255,255,255,.35)}
+
+/* Toast */
+.toast{position:absolute;bottom:calc(90px + var(--safe-bottom));left:50%;transform:translateX(-50%) translateY(20px);background:rgba(61,46,34,.88);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);color:#fff;padding:10px 20px;border-radius:12px;font-size:13px;font-weight:700;z-index:50;opacity:0;transition:opacity .2s,transform .2s var(--ease-out);pointer-events:none;white-space:nowrap;box-shadow:0 4px 16px rgba(61,46,34,.2)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* Splash / loading */
+.loading-overlay{position:absolute;inset:0;background:var(--green);z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+.loading-overlay.hidden{display:none}
+.splash-wordmark{font-family:var(--font-serif);font-variation-settings:'SOFT' 0,'WONK' 1;font-size:64px;font-weight:600;letter-spacing:-1.5px;color:#fff}
+.spinner{width:28px;height:28px;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;border-right-color:#fff;border-radius:50%;animation:spin .7s cubic-bezier(.5,.1,.5,.9) infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-overlay .load-text{font-size:14px;color:rgba(255,255,255,.85);font-weight:600}
+
+/* Staggered animations */
+@keyframes staggerUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.screen[data-screen="welcome"].active .crib-icon{animation:staggerUp .5s var(--ease-out) .05s both}
+.screen[data-screen="welcome"].active h1{animation:staggerUp .5s var(--ease-out) .12s both}
+.screen[data-screen="welcome"].active .sub{animation:staggerUp .5s var(--ease-out) .18s both}
+.screen[data-screen="welcome"].active .parent-btn{animation:staggerUp .5s var(--ease-out) .28s both}
+.screen[data-screen="welcome"].active .family-btn{animation:staggerUp .5s var(--ease-out) .36s both}
+
+@keyframes staggerFade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.screen[data-screen^="step"].active .progress-stars{animation:staggerFade .4s var(--ease-out) .05s both}
+.screen[data-screen^="step"].active .step-emoji{animation:staggerFade .4s var(--ease-out) .1s both}
+.screen[data-screen^="step"].active h1{animation:staggerFade .4s var(--ease-out) .16s both}
+.screen[data-screen^="step"].active .sub{animation:staggerFade .4s var(--ease-out) .2s both}
+
+/* Grain overlay */
+body::after {
+  content:""; position:fixed; inset:0; z-index:100; pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
+  opacity:.3; mix-blend-mode:multiply;
+}
+
+/* Hover (desktop) */
+@media(hover:hover){
+  .role-btn:hover{transform:translateY(-2px)}
+  .parent-btn:hover{box-shadow:0 12px 36px rgba(50,98,148,.4),inset 0 1px 0 rgba(255,255,255,.12)}
+  .family-btn:hover{box-shadow:0 12px 36px rgba(126,168,74,.42),inset 0 1px 0 rgba(255,255,255,.15)}
+  .btn.primary:hover,.btn.peach:hover{transform:translateY(-1px);filter:brightness(1.06)}
+  .btn.text-btn:hover{color:var(--ink)}
+  .fab:hover{transform:scale(1.08);box-shadow:0 10px 32px rgba(50,98,148,.45)}
+  .tab-bar button:hover{color:var(--ink-soft)}
+  .tab-bar button.active:hover{color:var(--terracotta)}
+  .milestone-card:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(80,60,20,.12),inset 0 1px 0 rgba(255,255,255,.5)}
+  .stat-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(80,60,20,.1),inset 0 1px 0 rgba(255,255,255,.6)}
+  .polaroid:hover{transform:scale(1.12)!important;z-index:10;box-shadow:0 8px 22px rgba(80,60,20,.3)}
+  .text-post:hover{transform:scale(1.08)!important;z-index:10}
+  .chip:hover{border-color:var(--green);background:rgba(161,204,106,.1)}
+  .post-option:hover{transform:translateY(-2px)}
+  .post-option.photo:hover{background:rgba(161,204,106,.16);border-color:var(--green-hover)}
+  .post-option.text-opt:hover{background:rgba(146,191,236,.16);border-color:var(--blue-hover)}
+  .ms-heart-btn:hover{border-color:var(--rose);color:var(--rose)}
+  .photo-upload:hover{border-color:var(--peach-btn)}
+}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(prefers-contrast:high){
+  :root{--ink:#1a0f08;--ink-soft:#4a3b2e;--ink-light:#6b5c4e;--line:#c4b5a4}
+  .btn.primary,.btn.peach,.parent-btn{border:2px solid currentColor}
+  .stat-card,.milestone-card,.viewing-as{border:1.5px solid var(--ink-light)}
+}
+
+/* Google sign-in button */
+.google-btn {
+  width:100%; max-width:360px; display:flex; align-items:center; justify-content:center; gap:10px;
+  padding:14px 20px; border-radius:16px; border:1.5px solid var(--line);
+  background:#fff; cursor:pointer; font-family:var(--font-sans); font-size:var(--text-base);
+  font-weight:700; color:var(--ink); transition:transform .1s,box-shadow .12s,border-color .15s;
+  box-shadow:0 2px 8px rgba(80,60,20,.06); min-height:48px;
+}
+.google-btn:active{transform:scale(.96)!important;transition:transform .05s}
+.google-btn .g-logo{width:20px;height:20px;flex:none}
+.google-btn:disabled{opacity:.5;cursor:default;transform:none!important}
+@media(hover:hover){.google-btn:hover{border-color:var(--peach-btn);box-shadow:0 4px 16px rgba(80,60,20,.1);transform:translateY(-1px)}}
+
+/* Save memories banner */
+.save-banner {
+  margin:0 var(--space-lg) var(--space-lg); background:linear-gradient(135deg,#fdfaf3,#f3ecdb);
+  border-radius:20px; padding:var(--space-lg); border:1.5px solid var(--line);
+  box-shadow:0 4px 18px rgba(80,60,20,.08),inset 0 1px 0 rgba(255,255,255,.6);
+  animation:staggerFade .5s var(--ease-out) both;
+}
+.save-banner .sb-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.save-banner h3{font-family:var(--font-serif);font-size:var(--text-lg);font-weight:600;letter-spacing:-.3px;margin-bottom:4px}
+.save-banner .sb-dismiss{background:none;border:none;cursor:pointer;color:var(--ink-light);font-size:18px;padding:4px;margin:-4px -4px 0 0;line-height:1}
+.save-banner .sb-dismiss:active{opacity:.5}
+.save-banner p{font-size:var(--text-sm);color:var(--ink-soft);font-weight:600;line-height:1.5;margin-bottom:var(--space-md)}
+.save-banner .google-btn{max-width:100%}
+
+/* Connected account badge */
+.account-badge {
+  margin:0 var(--space-lg) var(--space-lg); background:var(--card);
+  border-radius:16px; padding:14px 18px; display:flex; align-items:center; gap:12px;
+  box-shadow:0 2px 12px rgba(80,60,20,.06),inset 0 1px 0 rgba(255,255,255,.5);
+  border:1px solid rgba(228,220,202,.3);
+}
+.account-badge .ab-icon{width:36px;height:36px;border-radius:50%;background:rgba(155,184,154,.15);display:flex;align-items:center;justify-content:center;flex:none}
+.account-badge .ab-icon svg{width:18px;height:18px;color:var(--sage)}
+.account-badge .ab-info{flex:1;min-width:0}
+.account-badge .ab-label{font-size:var(--text-xs);color:var(--ink-light);font-weight:700}
+.account-badge .ab-email{font-size:var(--text-sm);font-weight:700;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Wordmark */
+.cal-wordmark{font-family:var(--font-serif);font-size:var(--text-lg);font-weight:600;color:var(--blue);letter-spacing:-.5px;font-variation-settings:'SOFT' 0,'WONK' 1}
+.ms-wordmark{font-family:var(--font-serif);font-size:var(--text-lg);font-weight:600;color:var(--blue);letter-spacing:-.5px;font-variation-settings:'SOFT' 0,'WONK' 1;padding-top:calc(4px + var(--safe-top));padding-left:var(--space-lg)}
+
+/* Profile initial */
+.avatar-initial{font-family:var(--font-serif);font-size:40px;font-weight:600;color:var(--terracotta);letter-spacing:-1px;line-height:1;opacity:.85}
+
+/* Baby age pill */
+.baby-age-pill{display:inline-flex;align-items:center;gap:4px;background:var(--sky);color:var(--ink);font-size:var(--text-xs);font-weight:600;padding:5px 14px;border-radius:20px;margin-top:6px}
+
+/* Skip link */
+.skip-link{position:absolute;top:-100%;left:16px;background:var(--terracotta);color:#fff;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;z-index:200;transition:top .15s}
+.skip-link:focus{top:calc(8px + var(--safe-top))}
+
+/* Empty state */
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px;text-align:center}
+.empty-state .empty-icon{font-size:36px;margin-bottom:16px;width:72px;height:72px;border-radius:50%;background:rgba(255,146,30,.1);display:flex;align-items:center;justify-content:center}
+.empty-state .empty-text{font-size:15px;font-weight:700;color:var(--ink-soft);margin-bottom:4px}
+.empty-state .empty-sub{font-size:13px;color:var(--ink-light);font-weight:600}
 </style>
 </head>
 <body>
 
-  <a href="#screen" class="skip-link">Skip to app</a>
-  <header class="stage">
-    <div class="pitch">
-      <h1>Baby<span>Near</span></h1>
-      <p>WhatsApp speed, but a quiet little space that's <b>all baby, all the time</b> — so family far away never misses a moment.</p>
-      <div class="tag">For Aanya, 6,400 km away</div>
+<a href="#app" class="skip-link">Skip to content</a>
+<div id="app">
+  <!-- Loading -->
+  <div class="loading-overlay" id="loading">
+    <div class="splash-wordmark">Dote</div>
+    <div class="spinner"></div>
+    <div class="load-text">Loading your album...</div>
+  </div>
+
+  <!-- WELCOME -->
+  <section class="screen" data-screen="welcome">
+    <div class="nursery">
+      <div class="mobile"><div class="hook"></div><div class="hook"></div><div class="hook"></div><div class="string"></div><div class="string"></div><div class="string"></div><span class="ornament star-o">&#10038;</span><span class="ornament moon-o">&#9790;</span><div class="ornament ball-o"></div></div>
+      <div class="welcome-content">
+        <div class="brand-mark">Dote</div>
+        <h1>Welcome home</h1>
+        <p class="sub">A cosy album for your baby's firsts</p>
+        <div class="role-row">
+          <button class="role-btn family-btn" id="familyRoleBtn"><span class="role-icon">&#128106;</span><strong>Family</strong><span class="desc">View photos &amp; leave reactions</span></button>
+          <button class="role-btn parent-btn" id="parentRoleBtn"><span class="role-icon">&#128118;</span><strong>Parent</strong><span class="desc">Set up your family album</span></button>
+        </div>
+      </div>
+      <div class="farm-row"><span class="cow">&#128004;</span><span class="chicks">&#128036;&#128036;&#128036;</span></div>
     </div>
-  </header>
+  </section>
 
-  <main class="phone" id="screen">
-    <div class="notch"></div>
-    <div class="screen">
+  <!-- STEP 1 -->
+  <section class="screen" data-screen="step1">
+    <div class="nursery">
+      <div class="mobile"><div class="hook"></div><div class="hook"></div><div class="hook"></div><div class="string"></div><div class="string"></div><div class="string"></div><span class="ornament star-o">&#10038;</span><span class="ornament moon-o">&#9790;</span><div class="ornament ball-o"></div></div>
+      <div class="step-content">
+        <div class="progress-stars"><span class="star filled">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span></div>
+        <div class="step-emoji">&#128075;</div>
+        <h1>What's your name?</h1>
+        <p class="sub">You'll be the album's curator</p>
+        <input class="input-field" type="text" id="parentNameInput" placeholder="e.g. Sarah" autocomplete="given-name">
+        <button class="btn primary" id="step1Cont">Continue &#8594;</button>
+        <button class="btn text-btn" id="step1Back">&#8592; Back</button>
+      </div>
+      <div class="floor"><span class="bear">&#128059;</span><span class="star-f">&#11088;</span><span class="cloud-f">&#9729;</span><span class="bunny">&#128048;</span></div>
+    </div>
+  </section>
 
-      <!-- ============ FEED ============ -->
-      <section class="view active" data-view="feed">
-        <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
-        <div class="appbar">
-          <div class="brand">Baby<b>Near</b></div>
-          <img class="avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&h=120&fit=crop" alt="Your profile">
+  <!-- STEP 2 -->
+  <section class="screen" data-screen="step2">
+    <div class="nursery">
+      <div class="mobile"><div class="hook"></div><div class="hook"></div><div class="hook"></div><div class="string"></div><div class="string"></div><div class="string"></div><span class="ornament star-o">&#10038;</span><span class="ornament moon-o">&#9790;</span><div class="ornament ball-o"></div></div>
+      <div class="step-content">
+        <div class="progress-stars"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star">&#9733;</span></div>
+        <div class="step-emoji">&#127868;</div>
+        <h1>About your baby</h1>
+        <p class="sub">All optional — add more later in profile</p>
+        <div class="photo-upload" id="photoUpload"><span>&#128247;</span><span class="cam-badge">&#128248;</span></div>
+        <input type="file" id="babyPhotoFile" accept="image/*" capture="environment" style="display:none">
+        <input class="input-field" type="text" id="babyNameInput" placeholder="Baby's name (optional)">
+        <div class="input-label">Birthday (optional)</div>
+        <input class="input-field" type="date" id="babyBirthday">
+        <button class="btn primary" id="step2Cont">Continue &#8594;</button>
+        <button class="btn text-btn" id="step2Back">&#8592; Back</button>
+      </div>
+      <div class="floor"><span class="bear">&#128059;</span><span class="star-f">&#11088;</span><span class="cloud-f">&#9729;</span><span class="bunny">&#128048;</span></div>
+    </div>
+  </section>
+
+  <!-- STEP 3 -->
+  <section class="screen" data-screen="step3">
+    <div class="nursery">
+      <div class="mobile"><div class="hook"></div><div class="hook"></div><div class="hook"></div><div class="string"></div><div class="string"></div><div class="string"></div><span class="ornament star-o">&#10038;</span><span class="ornament moon-o">&#9790;</span><div class="ornament ball-o"></div></div>
+      <div class="step-content">
+        <div class="progress-stars"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span></div>
+        <div class="step-emoji">&#127881;</div>
+        <h1>Your album is ready!</h1>
+        <p class="sub">Share this link so family can follow along</p>
+        <div class="invite-box"><div class="label">Family invite link</div><div class="invite-link-row"><div class="link" id="inviteLink">Loading...</div><button class="copy-btn" id="copyBtn">&#128203; Copy</button></div><div class="note">Family can view photos and leave reactions — no account needed.</div></div>
+        <button class="btn primary" id="openAlbum">Open the album &#8594;</button>
+        <button class="btn text-btn" id="step3Back">&#8592; Back</button>
+      </div>
+      <div class="floor"><span class="bear">&#128059;</span><span class="star-f">&#11088;</span><span class="cloud-f">&#9729;</span><span class="bunny">&#128048;</span></div>
+    </div>
+  </section>
+
+  <!-- MAIN APP -->
+  <section class="screen" data-screen="main">
+    <div class="app-shell">
+      <div class="tab-view">
+        <div class="tab-pane active" data-tab="calendar" style="position:relative">
+          <div class="cal-header"><span class="cal-wordmark">Dote</span><div class="view-toggle"><button class="active" id="mToggle">Month</button><button id="yToggle">Year</button></div></div>
+          <div id="monthView">
+            <div class="cal-month-nav"><button id="prevM">&#8249;</button><span class="month-name" id="mName">June</span><button id="nextM">&#8250;</button></div>
+            <div class="cal-grid" id="calGrid"></div>
+            <svg class="doodle" style="top:56px;left:6px;width:48px;height:48px" viewBox="0 0 48 48"><g fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"><line x1="24" y1="4" x2="24" y2="14"/><line x1="24" y1="34" x2="24" y2="44"/><line x1="4" y1="24" x2="14" y2="24"/><line x1="34" y1="24" x2="44" y2="24"/><line x1="10" y1="10" x2="17" y2="17"/><line x1="31" y1="31" x2="38" y2="38"/><line x1="38" y1="10" x2="31" y2="17"/><line x1="17" y1="31" x2="10" y2="38"/></g><circle cx="24" cy="24" r="5" fill="var(--gold)" opacity=".6"/></svg>
+            <svg class="doodle" style="top:30px;right:14px;width:22px;height:22px" viewBox="0 0 24 24"><path d="M12 2C8 2 4 6 4 10c0 2 1 4 3 5h10c2-1 3-3 3-5 0-4-4-8-8-8z" fill="var(--sage)" opacity=".5"/><rect x="10" y="15" width="4" height="4" rx="1" fill="var(--sage)" opacity=".4"/></svg>
+            <span class="doodle" style="top:320px;left:14px;font-size:20px;opacity:.3">&#9827;</span>
+            <svg class="doodle" style="bottom:80px;right:20px;width:20px;height:18px" viewBox="0 0 20 18"><path d="M10 17s-7-5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 17 7c0 5-7 10-7 10z" fill="var(--rose)" opacity=".5"/></svg>
+            <svg class="doodle" style="bottom:40px;right:50px;width:24px;height:24px" viewBox="0 0 24 24"><path d="M12 21l-1.5-1.5C5 14 2 11 2 7.5 2 4.5 4.5 2 7.5 2c1.7 0 3.4.8 4.5 2.1C13.1 2.8 14.8 2 16.5 2 19.5 2 22 4.5 22 7.5c0 3.5-3 6.5-8.5 12L12 21z" fill="none" stroke="var(--terracotta)" stroke-width="1.5" opacity=".4"/></svg>
+            <svg class="doodle" style="bottom:30px;left:14px;width:30px;height:20px" viewBox="0 0 30 20"><ellipse cx="10" cy="14" rx="8" ry="6" fill="var(--cloud)" opacity=".4"/><ellipse cx="18" cy="10" rx="7" ry="6" fill="var(--cloud)" opacity=".3"/><ellipse cx="22" cy="14" rx="6" ry="5" fill="var(--cloud)" opacity=".35"/></svg>
+            <svg class="doodle" style="bottom:60px;right:8px;width:20px;height:20px" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 18,21 12,18 6,21 7,14 2,9 9,9" fill="none" stroke="var(--terracotta)" stroke-width="1.5" opacity=".4"/></svg>
+          </div>
+          <div id="yearView" style="display:none">
+            <div class="year-nav"><button id="prevY">&#8249;</button><span class="year-num" id="yNum">2026</span><button id="nextY">&#8250;</button></div>
+            <div class="year-grid" id="yGrid"></div>
+          </div>
+          <button class="fab" id="fab">+</button>
         </div>
-        <div class="babyhead">
-          <img class="pic" src="https://images.unsplash.com/photo-1519689680058-324335c77eba?w=160&h=160&fit=crop" alt="Aanya">
-          <div>
-            <h2>Aanya 🌸</h2>
-            <p>11 months • Mumbai, India</p>
+        <div class="tab-pane" data-tab="milestones" id="milestonesPane">
+          <div class="milestones-header"><h1>Milestones</h1><div class="deco"><span style="color:var(--gold)">&#10038;</span><span style="color:var(--peach-btn)">&#10047;</span></div></div>
+          <div id="milestonesList"></div>
+        </div>
+        <div class="tab-pane" data-tab="baby">
+          <div class="profile-header">
+            <span class="profile-deco" style="top:56px;left:16px;font-size:20px;color:var(--peach-btn)">&#10047;</span>
+            <span class="profile-deco" style="top:60px;right:60px;font-size:12px;color:var(--rose)">&#9829;</span>
+            <span class="profile-deco" style="top:48px;right:16px;font-size:22px;color:var(--sage)">&#9752;</span>
+            <span class="profile-deco" style="top:200px;left:20px;font-size:16px;color:var(--lavender)">&#10038;</span>
+            <span class="profile-deco" style="top:190px;right:24px;font-size:14px;color:var(--gold)">&#10038;</span>
+            <div class="profile-avatar" id="profileAvatar"><span class="avatar-initial" id="avatarInitial">B</span><button class="edit-badge" id="editBadge">&#9998;</button></div>
+            <h1 id="profileName">Baby</h1>
+            <div class="baby-age-pill" id="babyAgePill" style="display:none"></div>
+          </div>
+          <div class="stats-row">
+            <div class="stat-card"><div class="stat-line orange"></div><div class="stat-val" id="ageVal">&mdash;</div><div class="stat-label">Age</div></div>
+            <div class="stat-card"><div class="stat-line purple"></div><div class="stat-val" id="weightVal">&mdash;</div><div class="stat-label">Weight</div></div>
+            <div class="stat-card"><div class="stat-line teal"></div><div class="stat-val" id="heightVal">&mdash;</div><div class="stat-label">Height</div></div>
+          </div>
+          <div class="viewing-as"><div><div class="va-label">Viewing as</div><div class="va-name" id="viewAs">Parent</div></div><button class="va-switch" id="switchUser">Log out</button></div>
+          <div class="save-banner" id="saveBanner" style="display:none">
+            <div class="sb-header"><h3>Save your memories</h3><button class="sb-dismiss" id="dismissBanner">&times;</button></div>
+            <p>Connect your Google account so your baby's photos and milestones are safe — even if you switch phones or clear your browser.</p>
+            <button class="google-btn" id="googleSignInBanner"><svg class="g-logo" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A10.96 10.96 0 0 0 1 12c0 1.77.42 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Continue with Google</button>
+          </div>
+          <div class="account-badge" id="accountBadge" style="display:none">
+            <div class="ab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <div class="ab-info"><div class="ab-label">Signed in with Google</div><div class="ab-email" id="accountEmail">—</div></div>
+          </div>
+          <div class="moments-section"><h3>Recent moments</h3>
+            <div class="moments-grid" id="momGrid"></div>
           </div>
         </div>
-        <div class="scroll">
-          <div class="daystamp">Today</div>
-
-          <div class="card">
-            <div class="who">
-              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop" alt="Priya">
-              <b>Priya (Mom)</b><span>2h ago</span>
-            </div>
-            <span class="milestone-chip">Milestone · First steps!</span>
-            <img class="ph" src="https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=600&h=460&fit=crop" alt="Aanya taking her first steps">
-            <div class="cap">She let go of the couch and took THREE steps to me 🥹 Wish you could've seen it live, didi!</div>
-            <div class="react">
-              <div class="heart" onclick="bump(this)">❤ <span class="n">12</span></div>
-              <div class="faces">
-                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop">
-                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=60&h=60&fit=crop">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop">
-              </div>
-              <div class="cmt">💬 5</div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="who">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop" alt="Rohan">
-              <b>Rohan (Dad)</b><span>6h ago</span>
-            </div>
-            <img class="ph" src="https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?w=600&h=460&fit=crop" alt="Aanya at breakfast with food everywhere">
-            <div class="cap">Breakfast situation 🥣 90% on the floor, 10% in the mouth. A solid morning.</div>
-            <div class="react">
-              <div class="heart" onclick="bump(this)">❤ <span class="n">8</span></div>
-              <div class="faces">
-                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=60&h=60&fit=crop">
-                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=60&h=60&fit=crop">
-              </div>
-              <div class="cmt">💬 2</div>
-            </div>
-          </div>
-
-          <div class="daystamp">Yesterday</div>
-
-          <div class="card">
-            <div class="who">
-              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop" alt="Priya">
-              <b>Priya (Mom)</b><span>1d ago</span>
-            </div>
-            <img class="ph" src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&h=460&fit=crop" alt="Aanya giggling during naptime">
-            <div class="cap">Nap that turned into a giggle fit 💤➡️😂</div>
-            <div class="react">
-              <div class="heart" onclick="bump(this)">❤ <span class="n">15</span></div>
-              <div class="faces">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop">
-                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop">
-              </div>
-              <div class="cmt">💬 7</div>
-            </div>
-          </div>
-          <div style="height:14px"></div>
-        </div>
-      </section>
-
-      <!-- ============ MILESTONES ============ -->
-      <section class="view" data-view="milestones">
-        <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
-        <div class="appbar"><div class="brand">Milestones</div></div>
-        <div class="scroll">
-          <div class="agegroup">9–12 months</div>
-          <div class="ms done"><div class="tick">✓</div><div><h4>First steps</h4><p>Logged today by Priya</p></div></div>
-          <div class="ms done"><div class="tick">✓</div><div><h4>Waves bye-bye</h4><p>Logged 2 weeks ago</p></div></div>
-          <div class="ms"><div class="tick">✓</div><div><h4>First word</h4><p>Tap to capture this moment</p></div><div class="go">＋</div></div>
-          <div class="ms"><div class="tick">✓</div><div><h4>Claps hands</h4><p>Tap to capture this moment</p></div><div class="go">＋</div></div>
-
-          <div class="agegroup" style="margin-top:14px">6–9 months</div>
-          <div class="ms done"><div class="tick">✓</div><div><h4>Sits without support</h4><p>Logged last month</p></div></div>
-          <div class="ms done"><div class="tick">✓</div><div><h4>First solid food</h4><p>Logged 2 months ago</p></div></div>
-          <div class="ms done"><div class="tick">✓</div><div><h4>Responds to name</h4><p>Logged 2 months ago</p></div></div>
-
-          <div class="agegroup" style="margin-top:14px">Your own moments</div>
-          <div class="ms"><div class="tick">✓</div><div><h4>Add a custom milestone</h4><p>Anything you want to remember</p></div><div class="go">＋</div></div>
-          <div style="height:14px"></div>
-        </div>
-      </section>
-
-      <!-- ============ POST ============ -->
-      <section class="view" data-view="post">
-        <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
-        <div class="appbar"><div class="brand">Share a moment</div></div>
-        <div class="postwrap">
-          <div class="photo-drop">
-            <div class="cam">📷</div>
-            <b>Snap or pick a photo</b>
-            <span>One tap — that's the whole job</span>
-          </div>
-          <div class="cap-input">Say something sweet…</div>
-          <div class="ms-toggle">⭐ Mark as a milestone <div class="sw"></div></div>
-          <div class="speed">⚡ Posts in under 10 seconds</div>
-          <button class="btn" style="margin-top:14px" onclick="go('feed')">Share with the family →</button>
-        </div>
-      </section>
-
-      <!-- ============ FAMILY ============ -->
-      <section class="view" data-view="family">
-        <div class="statusbar"><span>9:41</span><span>📶 🔋</span></div>
-        <div class="appbar"><div class="brand">Family Circle</div></div>
-        <div class="scroll">
-          <div class="invite">
-            <h3>Bring everyone close 🤍</h3>
-            <p>Send one link. They tap it and they're in — no account, no app store, no fuss.</p>
-            <div class="link-row">
-              <div class="lk">babynear.app/aanya/join · k7x2…</div>
-              <button class="btn" style="padding:11px 16px;font-size:13px;border-radius:13px" onclick="toast('Invite link copied ✨')">Copy</button>
-            </div>
-          </div>
-
-          <div class="secrole">Can post</div>
-          <div class="member"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop"><div><b>Priya</b><p>Mom</p></div><span class="pill parent">Parent</span></div>
-          <div class="member"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop"><div><b>Rohan</b><p>Dad</p></div><span class="pill parent">Parent</span></div>
-
-          <div class="secrole" style="margin-top:14px">Can view & react</div>
-          <div class="member"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop"><div><b>You</b><p>Aunt · Seattle, USA 🇺🇸</p></div><span class="pill fam">Family</span></div>
-          <div class="member"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=80&h=80&fit=crop"><div><b>Naniji</b><p>Grandma · Pune</p></div><span class="pill fam">Family</span></div>
-          <div class="member"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop"><div><b>Uncle Sam</b><p>London, UK 🇬🇧</p></div><span class="pill fam">Family</span></div>
-          <div style="height:14px"></div>
-        </div>
-      </section>
-
-      <!-- bottom nav -->
-      <nav class="nav">
-        <button data-go="feed" class="active"><span class="ic">🏠</span>Feed</button>
-        <button data-go="milestones"><span class="ic">⭐</span>Milestones</button>
-        <button class="post-btn" data-go="post"><span class="ic">＋</span></button>
-        <button data-go="family"><span class="ic">👨‍👩‍👧</span>Family</button>
-        <button data-go="lookback" onclick="toast('“On this day” lookback — coming in the build ✨')"><span class="ic">🕰️</span>Lookback</button>
+      </div>
+      <nav class="tab-bar" id="tabBar">
+        <button class="active" data-tab="calendar"><span class="tab-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>Calendar</button>
+        <button data-tab="milestones"><span class="tab-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Milestones</button>
+        <button data-tab="baby"><span class="tab-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></span>Baby</button>
       </nav>
-
     </div>
-  </main>
+  </section>
 
-  <div class="hint">Tap the bottom nav to move between screens →</div>
+  <!-- SHEETS -->
+  <div class="sheet-backdrop" id="joinBD"></div>
+  <div class="sheet" id="joinSH"><div class="grab"></div><h2>Join the album</h2><input class="input-field" type="text" id="relName" placeholder="Your name, e.g. Grandma Rose" style="margin-top:12px"><div class="relation-label">Your relation to the baby <span>(optional)</span></div><div class="chips" id="chips"></div><button class="btn peach" id="enterAlbum">Enter the album &#8594;</button></div>
+
+  <div class="sheet-backdrop" id="postBD"></div>
+  <div class="sheet" id="postSH"><div class="grab"></div><h2>Add a memory</h2><p class="sheet-sub">What happened today?</p><div class="post-option photo" id="optPhoto"><div class="po-icon">&#128247;</div><div><strong>Photo</strong><span class="po-desc">A moment worth keeping</span></div></div><div class="post-option text-opt" id="optText"><div class="po-icon">&#9999;&#65039;</div><div><strong>Note</strong><span class="po-desc">A little story or a first word</span></div></div></div>
+
+  <!-- Photo post sheet -->
+  <div class="sheet-backdrop" id="photoBD"></div>
+  <div class="sheet" id="photoSH">
+    <div class="grab"></div>
+    <h2>Share a photo</h2>
+    <div class="photo-preview-area" id="photoPreview">
+      <div class="placeholder"><div class="icon">&#128248;</div><div class="text">Tap to choose a photo</div></div>
+    </div>
+    <input type="file" id="postPhotoFile" accept="image/*" capture="environment" style="display:none">
+    <input class="input-field" type="text" id="photoCaptionInput" placeholder="Add a caption...">
+    <button class="btn primary" id="submitPhoto" disabled>Share with family &#8594;</button>
+    <button class="btn text-btn" id="cancelPhoto">Cancel</button>
+  </div>
+
+  <!-- Text post sheet -->
+  <div class="sheet-backdrop" id="textBD"></div>
+  <div class="sheet" id="textSH">
+    <div class="grab"></div>
+    <h2>Share a thought</h2>
+    <textarea class="text-input-area" id="textPostInput" placeholder="What's happening today?"></textarea>
+    <button class="btn primary" id="submitText" disabled>Share with family &#8594;</button>
+    <button class="btn text-btn" id="cancelText">Cancel</button>
+  </div>
+
+  <!-- Photo overlay -->
+  <div class="photo-overlay" id="photoOv"><button class="ov-close" id="ovClose">&times;</button><img id="ovImg" src="" alt=""><div class="ov-caption" id="ovCap"></div><div class="ov-hearts" id="ovHearts"><span>&#10084;&#65039;</span> <span id="ovHC">0</span></div></div>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<!-- Supabase SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
 <script>
-  function go(name){
-    document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active', v.dataset.view===name));
-    document.querySelectorAll('.nav button[data-go]').forEach(b=>b.classList.toggle('active', b.dataset.go===name));
-    const sc = document.querySelector('.view.active .scroll'); if(sc) sc.scrollTop=0;
-  }
-  document.querySelectorAll('.nav button[data-go]').forEach(b=>{
-    if(b.dataset.go!=='lookback') b.addEventListener('click',()=>go(b.dataset.go));
+(function(){
+
+// ═══════════════════════════════════════
+// CONFIG — Fill these in from your Supabase project
+// ═══════════════════════════════════════
+const SUPABASE_URL = 'https://zohxexcppxpopaldhktn.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_vZO4uQ8djEklyTSDonlJJg_qd0ikVBl';
+
+const DEMO_MODE = !SUPABASE_URL;
+
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let sb = null;
+const S = {
+  role: null, pName: '', bName: '', bDay: '', bPhotoUrl: '', rName: '', rel: '',
+  month: new Date().getMonth(), year: new Date().getFullYear(), yYear: new Date().getFullYear(),
+  familyId: null, memberId: null, babyId: null, userId: null,
+  isAnonymous: true, email: null,
+};
+const MO = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DH = ['S','M','T','W','T','F','S'];
+const REL = ['Grandparent','Aunt / Uncle','Sibling','Cousin','Family friend','Other'];
+
+let posts = {};
+let tt;
+
+// ═══════════════════════════════════════
+// DEMO DATA (used when no Supabase configured)
+// ═══════════════════════════════════════
+const DEMO_POSTS = {
+  [`${new Date().getFullYear()}-${new Date().getMonth()}-5`]: {type:'photo',img:'https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?w=400&h=400&fit=crop',cap:'Family walk in the park',hearts:3,rot:-3},
+  [`${new Date().getFullYear()}-${new Date().getMonth()}-6`]: {type:'photo',img:'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=400&fit=crop',cap:'Playtime giggles',hearts:0,rot:2},
+  [`${new Date().getFullYear()}-${new Date().getMonth()}-10`]: {type:'photo',img:'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=400&h=400&fit=crop',cap:'Peaceful afternoon nap',hearts:2,rot:-2},
+  [`${new Date().getFullYear()}-${new Date().getMonth()}-14`]: {type:'photo',img:'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=400&h=400&fit=crop',cap:'Tiny toes',hearts:3,rot:4},
+  [`${new Date().getFullYear()}-${new Date().getMonth()}-15`]: {type:'text',text:"Said 'mama' for the first time today",rot:-1},
+  [`${new Date().getFullYear()}-${new Date().getMonth()}-16`]: {type:'photo',img:'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=400&h=400&fit=crop',cap:'Playing with new toys',hearts:2,rot:-3},
+  [`${new Date().getFullYear()}-${new Date().getMonth()}-17`]: {type:'photo',img:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop',cap:'Smiling at the camera',hearts:1,rot:2},
+};
+
+// ═══════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
+function toast(m) {
+  clearTimeout(tt);
+  const t = $('#toast');
+  t.textContent = m;
+  t.classList.add('show');
+  tt = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function show(name) {
+  $$('.screen').forEach(s => s.classList.remove('active'));
+  const n = $(`[data-screen="${name}"]`);
+  if (n) { void n.offsetHeight; n.classList.add('active'); }
+}
+
+function openSh(bd, sh) { $(bd).classList.add('visible'); $(sh).classList.add('open'); }
+function closeSh(bd, sh) { $(bd).classList.remove('visible'); $(sh).classList.remove('open'); }
+
+function switchTab(t) {
+  $$('.tab-bar button').forEach(b => b.classList.toggle('active', b.dataset.tab === t));
+  $$('.tab-pane').forEach(p => p.classList.toggle('active', p.dataset.tab === t));
+}
+
+function genInviteCode() {
+  return Array.from(crypto.getRandomValues(new Uint8Array(6)))
+    .map(b => b.toString(36).padStart(2, '0')).join('').slice(0, 8);
+}
+
+// ═══════════════════════════════════════
+// SUPABASE — DATABASE OPERATIONS
+// ═══════════════════════════════════════
+
+async function initSupabase() {
+  if (DEMO_MODE) return;
+  sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  sb.auth.onAuthStateChange((event, session) => {
+    if (!session) return;
+    S.userId = session.user.id;
+    S.isAnonymous = session.user.is_anonymous ?? !session.user.email;
+    S.email = session.user.email || null;
+    localStorage.setItem('dote_session', JSON.stringify(session));
+    updateAccountUI();
   });
-  function bump(el){
-    const n=el.querySelector('.n'); n.textContent=(+n.textContent)+1;
-    el.style.transform='scale(1.3)'; setTimeout(()=>el.style.transform='',140);
+}
+
+async function signInAnonymously() {
+  if (DEMO_MODE) { S.userId = 'demo-user'; S.isAnonymous = true; return; }
+  const stored = localStorage.getItem('dote_session');
+  if (stored) {
+    const { data } = await sb.auth.setSession(JSON.parse(stored));
+    if (data?.session) {
+      S.userId = data.session.user.id;
+      S.isAnonymous = data.session.user.is_anonymous ?? !data.session.user.email;
+      S.email = data.session.user.email || null;
+      return;
+    }
   }
-  let t;
-  function toast(msg){
-    clearTimeout(t); const h=document.querySelector('.hint');
-    h.textContent=msg; h.style.background='rgba(214,138,108,.95)';
-    t=setTimeout(()=>{h.textContent='Tap the bottom nav to move between screens →';h.style.background='rgba(74,59,52,.9)';},2200);
+  const { data, error } = await sb.auth.signInAnonymously();
+  if (error) { console.error('Auth error:', error); return; }
+  S.userId = data.session.user.id;
+  S.isAnonymous = true;
+  S.email = null;
+  localStorage.setItem('dote_session', JSON.stringify(data.session));
+}
+
+async function signInWithGoogle() {
+  if (DEMO_MODE) {
+    S.isAnonymous = false;
+    S.email = 'demo@gmail.com';
+    localStorage.setItem('dote_banner_dismissed', '1');
+    updateAccountUI();
+    toast('Signed in with Google');
+    return;
   }
+  const btn = $('#googleSignInBanner');
+  if (btn) { btn.disabled = true; btn.textContent = 'Connecting...'; }
+
+  const redirectTo = window.location.origin + window.location.pathname;
+
+  if (S.isAnonymous) {
+    const { error } = await sb.auth.linkIdentity({
+      provider: 'google',
+      options: { redirectTo }
+    });
+    if (error) {
+      console.error('Link identity error:', error);
+      toast('Could not connect Google');
+      if (btn) { btn.disabled = false; btn.innerHTML = '<svg class="g-logo" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A10.96 10.96 0 0 0 1 12c0 1.77.42 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Continue with Google'; }
+    }
+  } else {
+    const { error } = await sb.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo }
+    });
+    if (error) {
+      console.error('Google sign-in error:', error);
+      toast('Could not sign in with Google');
+      if (btn) { btn.disabled = false; btn.innerHTML = '<svg class="g-logo" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A10.96 10.96 0 0 0 1 12c0 1.77.42 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Continue with Google'; }
+    }
+  }
+}
+
+function updateAccountUI() {
+  const banner = $('#saveBanner');
+  const badge = $('#accountBadge');
+  if (!banner || !badge) return;
+
+  if (S.isAnonymous && !localStorage.getItem('dote_banner_dismissed')) {
+    banner.style.display = '';
+    badge.style.display = 'none';
+  } else if (!S.isAnonymous) {
+    banner.style.display = 'none';
+    badge.style.display = '';
+    $('#accountEmail').textContent = S.email || 'Connected';
+    localStorage.setItem('dote_banner_dismissed', '1');
+  } else {
+    banner.style.display = 'none';
+    badge.style.display = 'none';
+  }
+}
+
+async function createFamily(parentName, babyName, babyBirthday, babyPhotoUrl) {
+  const inviteCode = genInviteCode();
+  if (DEMO_MODE) {
+    S.familyId = 'demo-family';
+    S.memberId = 'demo-member';
+    S.babyId = 'demo-baby';
+    localStorage.setItem('dote_family', JSON.stringify({
+      familyId: S.familyId, memberId: S.memberId, babyId: S.babyId,
+      role: 'parent', name: parentName, babyName, babyBirthday, babyPhotoUrl, inviteCode
+    }));
+    return inviteCode;
+  }
+  S.familyId = crypto.randomUUID();
+  S.memberId = crypto.randomUUID();
+  S.babyId = crypto.randomUUID();
+  const { error: e1 } = await sb.from('families').insert({ id: S.familyId, invite_code: inviteCode, created_by: S.userId });
+  if (e1) { console.error('Family insert error:', e1); toast('Error creating family'); return null; }
+  const { error: e2 } = await sb.from('members').insert({ id: S.memberId, family_id: S.familyId, user_id: S.userId, name: parentName, role: 'parent' });
+  if (e2) { console.error('Member insert error:', e2); toast('Error creating member'); return null; }
+  const babyData = { id: S.babyId, family_id: S.familyId, name: babyName || 'Baby' };
+  if (babyBirthday) babyData.birthday = babyBirthday;
+  if (babyPhotoUrl) babyData.photo_url = babyPhotoUrl;
+  const { error: e3 } = await sb.from('babies').insert(babyData);
+  if (e3) { console.error('Baby insert error:', e3); toast('Error creating baby'); return null; }
+  localStorage.setItem('dote_family', JSON.stringify({
+    familyId: S.familyId, memberId: S.memberId, babyId: S.babyId,
+    role: 'parent', name: parentName, babyName: babyName || 'Baby',
+    babyBirthday, babyPhotoUrl, inviteCode
+  }));
+  return inviteCode;
+}
+
+async function joinFamily(inviteCode, name, relation) {
+  if (DEMO_MODE) {
+    S.familyId = 'demo-family';
+    S.memberId = 'demo-relative';
+    S.babyId = 'demo-baby';
+    localStorage.setItem('dote_family', JSON.stringify({
+      familyId: S.familyId, memberId: S.memberId, babyId: S.babyId,
+      role: relation || 'family', name, inviteCode
+    }));
+    return true;
+  }
+  const { data: families } = await sb.from('families').select('id').eq('invite_code', inviteCode);
+  if (!families || families.length === 0) { toast('Invalid invite code'); return false; }
+  S.familyId = families[0].id;
+  S.memberId = crypto.randomUUID();
+  const { error: e1 } = await sb.from('members').insert({ id: S.memberId, family_id: S.familyId, user_id: S.userId, name, role: relation || 'family' });
+  if (e1) { console.error('Join error:', e1); return false; }
+  const { data: babies } = await sb.from('babies').select('*').eq('family_id', S.familyId).limit(1);
+  if (babies && babies.length > 0) S.babyId = babies[0].id;
+  localStorage.setItem('dote_family', JSON.stringify({
+    familyId: S.familyId, memberId: S.memberId, babyId: S.babyId,
+    role: relation || 'family', name, inviteCode
+  }));
+  return true;
+}
+
+async function loadPosts() {
+  if (DEMO_MODE) { posts = { ...DEMO_POSTS }; return; }
+  const { data } = await sb.from('posts').select('*').eq('family_id', S.familyId).order('created_at', { ascending: false });
+  posts = {};
+  if (data) {
+    for (const p of data) {
+      const d = new Date(p.created_at);
+      const key = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+      if (!posts[key]) {
+        let img = '';
+        if (p.type === 'photo' && p.photo_url) {
+          img = await getSignedUrl(p.photo_url);
+        }
+        posts[key] = {
+          id: p.id,
+          type: p.type,
+          img,
+          text: p.content || '',
+          cap: p.content || '',
+          hearts: p.hearts || 0,
+          rot: (Math.random() * 8 - 4) | 0,
+        };
+      }
+    }
+  }
+}
+
+async function createPost(type, content, storagePath) {
+  const now = new Date();
+  const key = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
+  const rot = (Math.random() * 8 - 4) | 0;
+
+  if (type === 'photo') {
+    const displayUrl = await getSignedUrl(storagePath);
+    posts[key] = { type: 'photo', img: displayUrl, cap: content, hearts: 0, rot };
+  } else {
+    posts[key] = { type: 'text', text: content, rot };
+  }
+
+  if (!DEMO_MODE) {
+    await sb.from('posts').insert({
+      family_id: S.familyId, baby_id: S.babyId, author_id: S.memberId,
+      type, content, photo_url: storagePath || null
+    });
+  }
+  renderCal();
+  toast('Posted!');
+}
+
+async function uploadPhoto(file) {
+  if (DEMO_MODE) return URL.createObjectURL(file);
+  const ext = file.name.split('.').pop();
+  const path = `${S.familyId}/${Date.now()}.${ext}`;
+  const { error } = await sb.storage.from('photos').upload(path, file);
+  if (error) { toast('Upload failed'); return null; }
+  return path;
+}
+
+async function getSignedUrl(path) {
+  if (!path || path.startsWith('http') || path.startsWith('blob:')) return path;
+  const { data, error } = await sb.storage.from('photos').createSignedUrl(path, 3600);
+  if (error) return '';
+  return data.signedUrl;
+}
+
+async function toggleHeart(postId) {
+  if (DEMO_MODE) return;
+  await sb.rpc('toggle_heart', { p_post_id: postId, p_member_id: S.memberId });
+}
+
+// ═══════════════════════════════════════
+// CALENDAR RENDERING
+// ═══════════════════════════════════════
+function renderCal() {
+  const g = $('#calGrid'), m = S.month, y = S.year;
+  $('#mName').textContent = MO[m];
+  const fd = new Date(y, m, 1).getDay(), dim = new Date(y, m + 1, 0).getDate();
+  const now = new Date(), cur = now.getFullYear() === y && now.getMonth() === m, td = now.getDate();
+  let h = DH.map(d => `<div class="cal-day-header">${d}</div>`).join('');
+  for (let i = 0; i < fd; i++) h += '<div class="cal-cell empty"></div>';
+  for (let d = 1; d <= dim; d++) {
+    const it = cur && d === td, k = `${y}-${m}-${d}`, p = posts[k], hp = !!p;
+    h += `<div class="cal-cell${it ? ' today' : ''}${hp ? ' has-post' : ''}" data-key="${k}">`;
+    h += it ? `<span class="day-num">${d}</span>` : `${d}`;
+    if (p) {
+      if (p.type === 'photo') {
+        h += `<div class="polaroid" style="transform:rotate(${p.rot}deg)" data-key="${k}"><img src="${p.img}" alt="${p.cap || ''}">`;
+        if (p.hearts > 0) h += `<div class="hearts">${'&#10084;'.repeat(p.hearts)}</div>`;
+        h += '</div>';
+      } else {
+        h += `<div class="text-post" style="transform:rotate(${p.rot}deg)" data-key="${k}">${p.text}</div>`;
+      }
+    }
+    h += '</div>';
+  }
+  const tot = fd + dim;
+  for (let i = 0; i < (7 - tot % 7) % 7; i++) h += '<div class="cal-cell empty"></div>';
+  g.innerHTML = h;
+  g.querySelectorAll('.polaroid,.text-post').forEach(el => {
+    el.addEventListener('click', e => {
+      e.stopPropagation();
+      const p = posts[el.dataset.key];
+      if (!p) return;
+      if (p.type === 'photo') showOv(p.img, p.cap, p.hearts);
+      else toast(p.text);
+    });
+  });
+}
+
+function renderYear() {
+  const y = S.yYear; $('#yNum').textContent = y; const now = new Date(); let h = '';
+  for (let m = 0; m < 12; m++) {
+    const fd = new Date(y, m, 1).getDay(), dim = new Date(y, m + 1, 0).getDate(), ic = now.getFullYear() === y && now.getMonth() === m;
+    h += `<div class="mini-month" data-m="${m}"><div class="mm-name">${MO[m].slice(0, 3)}</div>`;
+    h += '<div class="mm-header">' + DH.map(d => `<span>${d}</span>`).join('') + '</div><div class="mm-days">';
+    for (let i = 0; i < fd; i++) h += '<span></span>';
+    for (let d = 1; d <= dim; d++) {
+      const it = ic && d === now.getDate(), hp = !!posts[`${y}-${m}-${d}`];
+      h += it ? `<span class="today-mini">${d}</span>` : hp ? `<span class="has-dot">${d}</span>` : `<span>${d}</span>`;
+    }
+    h += '</div></div>';
+  }
+  $('#yGrid').innerHTML = h;
+  $$('.mini-month').forEach(el => el.addEventListener('click', () => {
+    S.month = +el.dataset.m; S.year = S.yYear; renderCal(); setCV('month');
+  }));
+}
+
+function setCV(v) {
+  $('#monthView').style.display = v === 'month' ? '' : 'none';
+  $('#yearView').style.display = v === 'year' ? '' : 'none';
+  $('#mToggle').classList.toggle('active', v === 'month');
+  $('#yToggle').classList.toggle('active', v === 'year');
+  if (v === 'year') renderYear();
+}
+
+function showOv(img, cap, hearts) {
+  $('#ovImg').src = img; $('#ovCap').textContent = cap || ''; $('#ovHC').textContent = hearts || 0;
+  $('#photoOv').classList.add('visible');
+}
+function hideOv() { $('#photoOv').classList.remove('visible'); }
+
+// ═══════════════════════════════════════
+// MILESTONES
+// ═══════════════════════════════════════
+function renderMilestones() {
+  const el = $('#milestonesList');
+  const allPosts = Object.entries(posts).filter(([, p]) => p.type === 'photo').slice(0, 5);
+  if (allPosts.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="empty-text">No milestones yet</div><div class="empty-sub">Capture a photo to mark your first milestone</div></div>';
+    return;
+  }
+  const emojis = ['⭐', '😊', '🌟', '💖', '🎉'];
+  el.innerHTML = allPosts.map(([key, p], i) => {
+    const date = new Date(key);
+    const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const author = S.pName || 'Parent';
+    return `<div class="milestone-card">
+      <div class="milestone-info"><div class="milestone-dot">${emojis[i % emojis.length]}</div><div><h3>${p.cap || 'A special moment'}</h3><span class="meta">${dateStr} &middot; ${author}</span><div class="desc">${p.cap || ''}</div></div></div>
+      <img class="ms-img" src="${p.img}" alt="${p.cap || ''}">
+    </div>`;
+  }).join('');
+  el.querySelectorAll('.ms-heart-btn').forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation(); b.classList.toggle('liked');
+    const c = b.querySelector('.h-count'), ic = b.querySelector('.h-icon');
+    let n = +c.textContent;
+    if (b.classList.contains('liked')) { n++; ic.innerHTML = '&#10084;'; } else { n = Math.max(0, n - 1); ic.innerHTML = '&#9825;'; }
+    c.textContent = n;
+  }));
+}
+
+// ═══════════════════════════════════════
+// PROFILE — RECENT MOMENTS
+// ═══════════════════════════════════════
+function renderMoments() {
+  const el = $('#momGrid');
+  const photos = Object.values(posts).filter(p => p.type === 'photo').slice(0, 6);
+  if (photos.length === 0) {
+    el.innerHTML = '<div style="grid-column:1/-1" class="empty-state"><div class="empty-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--terracotta)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="3"/><circle cx="12" cy="14" r="3.5"/><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7"/></svg></div><div class="empty-text">No moments yet</div></div>';
+    return;
+  }
+  el.innerHTML = photos.map(p =>
+    `<div class="moment" data-img="${p.img}"><img src="${p.img}" alt="${p.cap || ''}"></div>`
+  ).join('');
+  el.querySelectorAll('.moment[data-img]').forEach(m => m.addEventListener('click', () => showOv(m.dataset.img, '', 0)));
+}
+
+// ═══════════════════════════════════════
+// SETUP APP STATE
+// ═══════════════════════════════════════
+async function setupApp() {
+  const nm = S.role === 'parent' ? S.pName : S.rName;
+  const rl = S.role === 'parent' ? 'Parent' : (S.rel || 'Family');
+  $('#viewAs').textContent = `${nm} · ${rl}`;
+  $('#profileName').textContent = S.bName || 'Baby';
+  const ini = (S.bName || 'B').charAt(0).toUpperCase();
+  const ai = $('#avatarInitial');
+  if (ai) ai.textContent = ini;
+  $('#fab').classList.toggle('hidden', S.role !== 'parent');
+  $('#editBadge').classList.toggle('hidden', S.role !== 'parent');
+  if (S.bPhotoUrl) {
+    const avatarUrl = await getSignedUrl(S.bPhotoUrl);
+    if (avatarUrl) {
+      $('#profileAvatar').innerHTML = `<img src="${avatarUrl}" alt=""><button class="edit-badge${S.role !== 'parent' ? ' hidden' : ''}" id="editBadge">&#9998;</button>`;
+    }
+  } else {
+    const avatarIni = (S.bName || 'B').charAt(0).toUpperCase();
+    $('#profileAvatar').innerHTML = `<span class="avatar-initial">${avatarIni}</span><button class="edit-badge${S.role !== 'parent' ? ' hidden' : ''}" id="editBadge">&#9998;</button>`;
+  }
+  if (S.bDay) {
+    const b = new Date(S.bDay), n = new Date();
+    const mo = (n.getFullYear() - b.getFullYear()) * 12 + n.getMonth() - b.getMonth();
+    const ageStr = mo < 12 ? `${mo}mo` : `${Math.floor(mo / 12)}y ${mo % 12}mo`;
+    $('#ageVal').textContent = ageStr;
+    const pill = $('#babyAgePill');
+    if (pill) { pill.textContent = mo < 12 ? `${mo} months old` : `${Math.floor(mo / 12)} year${Math.floor(mo / 12) > 1 ? 's' : ''} old`; pill.style.display = ''; }
+  }
+  renderCal();
+  renderMilestones();
+  renderMoments();
+  updateAccountUI();
+}
+
+// ═══════════════════════════════════════
+// INIT — Check for existing session
+// ═══════════════════════════════════════
+async function init() {
+  await initSupabase();
+  await signInAnonymously();
+
+  const saved = localStorage.getItem('dote_family');
+  if (saved) {
+    const d = JSON.parse(saved);
+    S.familyId = d.familyId; S.memberId = d.memberId; S.babyId = d.babyId;
+    S.role = d.role; S.pName = d.name || ''; S.rName = d.name || '';
+    S.bName = d.babyName || 'Baby'; S.bDay = d.babyBirthday || '';
+    S.bPhotoUrl = d.babyPhotoUrl || ''; S.rel = d.role;
+    await loadPosts();
+    setupApp();
+    show('main');
+  } else {
+    show('welcome');
+  }
+  $('#loading').classList.add('hidden');
+}
+
+// ═══════════════════════════════════════
+// EVENT WIRING
+// ═══════════════════════════════════════
+
+// Relation chips
+REL.forEach(r => {
+  const c = document.createElement('span'); c.className = 'chip'; c.textContent = r;
+  c.addEventListener('click', () => { $$('#chips .chip').forEach(x => x.classList.remove('selected')); c.classList.add('selected'); S.rel = r; });
+  $('#chips').appendChild(c);
+});
+
+// Welcome
+$('#parentRoleBtn').addEventListener('click', () => show('step1'));
+$('#familyRoleBtn').addEventListener('click', () => openSh('#joinBD', '#joinSH'));
+
+// Step 1
+$('#step1Cont').addEventListener('click', () => { S.pName = $('#parentNameInput').value.trim() || 'Parent'; show('step2'); });
+$('#step1Back').addEventListener('click', () => show('welcome'));
+
+// Step 2 — baby photo
+let babyPhotoFile = null;
+$('#photoUpload').addEventListener('click', () => $('#babyPhotoFile').click());
+$('#babyPhotoFile').addEventListener('change', function() {
+  if (this.files[0]) {
+    babyPhotoFile = this.files[0];
+    const url = URL.createObjectURL(babyPhotoFile);
+    const pu = $('#photoUpload');
+    pu.classList.add('has-photo');
+    pu.innerHTML = `<img src="${url}" alt="">`;
+    toast('Photo added');
+  }
+});
+
+$('#step2Cont').addEventListener('click', async () => {
+  S.bName = $('#babyNameInput').value.trim() || 'Baby';
+  S.bDay = $('#babyBirthday').value;
+  if (babyPhotoFile) {
+    S.bPhotoUrl = await uploadPhoto(babyPhotoFile);
+  }
+  show('step3');
+});
+$('#step2Back').addEventListener('click', () => show('step1'));
+
+// Step 3 — create family
+$('#openAlbum').addEventListener('click', async () => {
+  S.role = 'parent';
+  const code = await createFamily(S.pName, S.bName, S.bDay, S.bPhotoUrl);
+  if (!code) return;
+  await loadPosts();
+  setupApp();
+  show('main');
+});
+$('#step3Back').addEventListener('click', () => show('step2'));
+
+// Generate invite link when step 3 shows
+const step3Observer = new MutationObserver(() => {
+  if ($('[data-screen="step3"]').classList.contains('active')) {
+    const code = genInviteCode();
+    const base = window.location.origin + window.location.pathname;
+    $('#inviteLink').textContent = `${base}?invite=${code}`;
+  }
+});
+step3Observer.observe($('[data-screen="step3"]'), { attributes: true, attributeFilter: ['class'] });
+
+$('#copyBtn').addEventListener('click', () => {
+  navigator.clipboard.writeText($('#inviteLink').textContent).catch(() => {});
+  const b = $('#copyBtn');
+  b.textContent = 'Copied!';
+  toast('Link copied');
+  setTimeout(() => { b.innerHTML = '&#128203; Copy'; }, 1500);
+});
+
+// Join album
+$('#joinBD').addEventListener('click', () => closeSh('#joinBD', '#joinSH'));
+$('#enterAlbum').addEventListener('click', async () => {
+  S.rName = $('#relName').value.trim() || 'Guest';
+  S.role = 'relative';
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('invite') || 'demo';
+  await joinFamily(code, S.rName, S.rel);
+  closeSh('#joinBD', '#joinSH');
+  await loadPosts();
+  setTimeout(() => { setupApp(); show('main'); }, 300);
+});
+
+// New post
+$('#fab').addEventListener('click', () => openSh('#postBD', '#postSH'));
+$('#postBD').addEventListener('click', () => closeSh('#postBD', '#postSH'));
+
+// Photo post
+let postPhotoFile = null;
+$('#optPhoto').addEventListener('click', () => {
+  closeSh('#postBD', '#postSH');
+  setTimeout(() => openSh('#photoBD', '#photoSH'), 350);
+});
+$('#photoPreview').addEventListener('click', () => $('#postPhotoFile').click());
+$('#postPhotoFile').addEventListener('change', function() {
+  if (this.files[0]) {
+    postPhotoFile = this.files[0];
+    const url = URL.createObjectURL(postPhotoFile);
+    $('#photoPreview').classList.add('has-photo');
+    $('#photoPreview').innerHTML = `<img src="${url}" alt="">`;
+    $('#submitPhoto').disabled = false;
+  }
+});
+$('#submitPhoto').addEventListener('click', async () => {
+  if (!postPhotoFile) return;
+  const caption = $('#photoCaptionInput').value.trim();
+  toast('Uploading...');
+  const url = await uploadPhoto(postPhotoFile);
+  if (url) {
+    await createPost('photo', caption, url);
+    closeSh('#photoBD', '#photoSH');
+    postPhotoFile = null;
+    $('#photoPreview').classList.remove('has-photo');
+    $('#photoPreview').innerHTML = '<div class="placeholder"><div class="icon">&#128248;</div><div class="text">Tap to choose a photo</div></div>';
+    $('#photoCaptionInput').value = '';
+    $('#submitPhoto').disabled = true;
+    renderMilestones();
+    renderMoments();
+  }
+});
+$('#cancelPhoto').addEventListener('click', () => closeSh('#photoBD', '#photoSH'));
+$('#photoBD').addEventListener('click', () => closeSh('#photoBD', '#photoSH'));
+
+// Text post
+$('#optText').addEventListener('click', () => {
+  closeSh('#postBD', '#postSH');
+  setTimeout(() => openSh('#textBD', '#textSH'), 350);
+});
+$('#textPostInput').addEventListener('input', function() {
+  $('#submitText').disabled = !this.value.trim();
+});
+$('#submitText').addEventListener('click', async () => {
+  const text = $('#textPostInput').value.trim();
+  if (!text) return;
+  await createPost('text', text, null);
+  closeSh('#textBD', '#textSH');
+  $('#textPostInput').value = '';
+  $('#submitText').disabled = true;
+});
+$('#cancelText').addEventListener('click', () => closeSh('#textBD', '#textSH'));
+$('#textBD').addEventListener('click', () => closeSh('#textBD', '#textSH'));
+
+// Tabs
+$$('#tabBar button').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
+
+// Calendar nav
+$('#prevM').addEventListener('click', () => { S.month--; if (S.month < 0) { S.month = 11; S.year--; } renderCal(); });
+$('#nextM').addEventListener('click', () => { S.month++; if (S.month > 11) { S.month = 0; S.year++; } renderCal(); });
+$('#mToggle').addEventListener('click', () => setCV('month'));
+$('#yToggle').addEventListener('click', () => setCV('year'));
+$('#prevY').addEventListener('click', () => { S.yYear--; renderYear(); });
+$('#nextY').addEventListener('click', () => { S.yYear++; renderYear(); });
+
+// Photo overlay
+$('#ovClose').addEventListener('click', e => { e.stopPropagation(); hideOv(); });
+$('#photoOv').addEventListener('click', hideOv);
+$('#ovHearts').addEventListener('click', e => {
+  e.stopPropagation();
+  const c = $('#ovHC'); c.textContent = +c.textContent + 1;
+  $('#ovHearts').style.transform = 'scale(1.2)';
+  setTimeout(() => $('#ovHearts').style.transform = '', 150);
+});
+
+// Profile
+$('#editBadge')?.addEventListener('click', () => toast('Edit profile coming soon'));
+$('#switchUser').addEventListener('click', () => {
+  localStorage.removeItem('dote_family');
+  localStorage.removeItem('dote_banner_dismissed');
+  S.role = null; S.familyId = null; S.isAnonymous = true; S.email = null;
+  show('welcome');
+  toast('Logged out');
+});
+
+// Google sign-in
+$('#googleSignInBanner').addEventListener('click', signInWithGoogle);
+$('#dismissBanner').addEventListener('click', () => {
+  localStorage.setItem('dote_banner_dismissed', '1');
+  $('#saveBanner').style.display = 'none';
+});
+
+// Check for invite code in URL
+const params = new URLSearchParams(window.location.search);
+if (params.get('invite') && !localStorage.getItem('dote_family')) {
+  setTimeout(() => openSh('#joinBD', '#joinSH'), 600);
+}
+
+// Register service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(() => {});
+}
+
+// Boot
+init();
+
+})();
 </script>
 </body>
 </html>

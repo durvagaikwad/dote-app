@@ -1,4 +1,4 @@
-const CACHE = 'dote-v1';
+const CACHE = 'dote-v2';
 const PRECACHE = [
   '/',
   '/index.html',
@@ -21,6 +21,8 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
+  const url = new URL(e.request.url);
+  if (url.hostname.includes('supabase')) return;
   e.respondWith(
     fetch(e.request)
       .then(res => {

@@ -4,8 +4,8 @@
   "description": "A cosy family photo-sharing app for tracking your baby's first moments",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f3e8d8",
-  "theme_color": "#c0573a",
+  "background_color": "#f8f2e5",
+  "theme_color": "#a1cc6a",
   "orientation": "portrait",
   "icons": [
     {
