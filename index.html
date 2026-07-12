@@ -66,35 +66,22 @@ body {
 }
 #app { position:relative; overflow:hidden; height:100dvh; }
 
-/* Landscape phones / small tablets */
+/* Phones fill the screen; anything wider gets a phone-width shell.
+   Dote is a mobile web app — never stretch the layout to tablet/desktop. */
 @media(min-width:480px){
-  body { background:#efe8d7; }
-  #app { max-width:680px; margin:0 auto; box-shadow:0 0 40px rgba(80,60,20,.1); background:var(--bg-app); }
-  .cal-grid { padding:0 var(--space-lg); }
-  .cal-cell { padding:6px 8px; font-size:var(--text-sm); }
-  .cal-cell.today .day-num { width:26px; height:26px; font-size:12px; }
-  .polaroid { width:60px; }
-  .text-post { width:68px; font-size:8px; }
-  .sheet { max-width:680px; left:50%; transform:translate(-50%,100%); }
+  :root{
+    /* pin fluid tokens to their ~393px-viewport values — type must not scale with desktop viewport */
+    --text-xs:.6875rem; --text-sm:.8125rem; --text-base:.875rem; --text-lg:1.0625rem;
+    --text-xl:1.3125rem; --text-2xl:1.625rem; --text-3xl:1.875rem;
+    --space-xs:.3125rem; --space-sm:.5625rem; --space-md:.8125rem;
+    --space-lg:1.0625rem; --space-xl:1.625rem; --space-2xl:2.1875rem;
+  }
+  body { background:#efe8d7; display:flex; align-items:center; justify-content:center; }
+  #app { max-width:393px; width:100%; height:100dvh; max-height:852px; margin:0 auto;
+         box-shadow:0 24px 80px rgba(80,60,20,.22),0 2px 8px rgba(80,60,20,.1);
+         border-radius:24px; background:var(--bg-app); }
+  .sheet { max-width:393px; left:50%; transform:translate(-50%,100%); border-radius:24px 24px 0 0; }
   .sheet.open { transform:translate(-50%,0); }
-  .input-field, .btn, .role-btn, .invite-box, .input-label { max-width:440px; }
-  .welcome-content, .step-content { padding-left:var(--space-2xl); padding-right:var(--space-2xl); }
-}
-
-/* Tablets */
-@media(min-width:640px){
-  .year-grid { grid-template-columns:repeat(4,1fr); gap:var(--space-lg); }
-  .milestone-card .ms-img { height:260px; }
-  .moments-grid { grid-template-columns:repeat(4,1fr); gap:var(--space-sm); }
-  .profile-avatar { width:120px; height:120px; font-size:40px; }
-}
-
-/* Wide desktop */
-@media(min-width:900px){
-  #app { max-width:720px; }
-  .year-grid { grid-template-columns:repeat(4,1fr); gap:24px 20px; padding:0 var(--space-xl) var(--space-xl); }
-  .moments-grid { gap:var(--space-md); }
-  .cal-grid { padding:0 var(--space-xl); }
 }
 
 /* Screens */
@@ -656,7 +643,7 @@ body::after {
   <section class="screen" data-screen="main">
     <div class="app-shell">
       <div class="tab-view">
-        <div class="tab-pane active" data-tab="calendar" style="position:relative">
+        <div class="tab-pane active" data-tab="calendar">
           <div class="cal-header"><span class="cal-wordmark">Dote</span><div class="view-toggle"><button class="active" id="mToggle">Month</button><button id="yToggle">Year</button></div></div>
           <div id="monthView">
             <div class="cal-month-nav"><button id="prevM">&#8249;</button><span class="month-name" id="mName">June</span><button id="nextM">&#8250;</button></div>
